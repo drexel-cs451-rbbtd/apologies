@@ -1,3 +1,7 @@
+**DEVELOPMENT HAS BEEN MOVED** [to Google Code](https://code.google.com/p/apologies/), because our professor newly mandated that we must use Subversion, and GitHub’s SVN translation layer does not support custom sibling folders to “trunk”. We might or might not move the project back to GitHub when the class is over.
+
+---
+
 Apologies
 =========
 
