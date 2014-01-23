@@ -1,0 +1,35 @@
+For now, I’m putting all information on one page. We can split off separate pages later if need be.
+
+== Team member availability ==
+
+[http://doodle.com/zn55x6zpmcuw5qea5n2pfyef/admin#table The time-availability poll we took on Doodle]
+
+== Resources related to <i>Sorry!</i> ==
+
+  * [https://en.wikipedia.org/wiki/Sorry!_%28game%29 <i>Sorry!</i> (game) – Wikipedia]
+  * [http://boardgamegeek.com/boardgame/2407/sorry <i>Sorry!</i> on BoardGameGeek]
+  * [http://www.hasbro.com/common/documents/dad288711c4311ddbd0b0800200c9a66/46ACC68319B9F36910005BB69E429D41.pdf English rules (pdf) 2003 – Hasbro website]
+
+== Avoiding copyright and trademark infringement ==
+
+The BoardGameGeek thread [http://boardgamegeek.com/thread/493249/mythbusting-game-design-and-copyright-trademarks-a “MythBusting: Game Design and Copyright, Trademarks, and Patents (US Law)”] summarizes the laws about copying games. From that, this is what I understand we can do to make our game legal:
+
+=== What we can and can’t copy from the Hasbro <i>Sorry!</i> game ===
+
+  * we can copy everything except
+    * the name “<i>Sorry!</i>”
+      * we will call our game something else, and say it’s like <i>Sorry!</i> in the description
+      * We’re calling it “Apologies” for now. The “Sorry!” card will be called “My Apologies”.
+    * the artwork for the board
+      * we will make our own board, with no copied graphics and some different shapes
+    * the wording of the game manual and instructions
+  * we can copy the abstract rules of the game
+  * we can copy the iconic game piece shape (but it might be safer not to)
+
+These restrictions are not too onerous, so I think we should follow them. That way, our game has the chance to be more than just a class project, and won’t be at risk of being shut down in a few years. I hope that this program, after we write it, will actually be useful for people who want to play <i>Sorry!</i>.
+
+== User interface planning ==
+
+When a piece is bumped, the bumped piece is animated sliding (translating) to its Start. Also animate pieces moving on the board due to cards (move forward, move backward, swap) or due to slides on the board.
+
+In our mockups (slide prototypes), we drew the actions below the board. We said that we will consider putting the actions at the center bottom on top of the board in the real game. That would put the actions closer to the card they are related to and make more efficient use of space. However, there might not be enough space on the board for the most complex action we have – we’ll need to check.
