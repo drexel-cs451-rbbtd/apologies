@@ -1,4 +1,4 @@
-# summary A page for information that doesn’t fit on other pages.
+#summary A page for information that doesn’t fit on other pages.
 
 For now, I’m putting all information on one page. We can split off separate pages later if need be.
 
