@@ -1,7 +1,4 @@
 package edu.drexel.cs451_rbbtd.apologies.gui;
-/**
- * Created by Ben on 2/8/14.
- */
 
 import com.sun.jmx.remote.security.JMXPluggableAuthenticator;
 

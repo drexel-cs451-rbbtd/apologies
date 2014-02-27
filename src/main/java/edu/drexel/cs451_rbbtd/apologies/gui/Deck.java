@@ -1,9 +1,5 @@
 package edu.drexel.cs451_rbbtd.apologies.gui;
 
-/**
- * Created by Ben on 2/24/14.
- */
-
 import javax.swing.*;
 import java.awt.*;
 import java.util.Random;

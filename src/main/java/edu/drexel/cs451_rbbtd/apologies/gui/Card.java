@@ -3,9 +3,6 @@ package edu.drexel.cs451_rbbtd.apologies.gui;
 import javax.swing.*;
 import java.awt.*;
 
-/**
- * Created by Ben on 2/24/14.
- */
 public class Card {
 
     private int x;
