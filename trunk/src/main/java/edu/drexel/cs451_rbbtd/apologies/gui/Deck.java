@@ -10,18 +10,18 @@ import java.util.Random;
 
 public class Deck {
 
-    String deck = "src\\main\\resources\\Deck.png";
-    String one = "src\\main\\resources\\One.png";
-    String two = "src\\main\\resources\\Two.png";
-    String three = "src\\main\\resources\\Three.png";
-    String four = "src\\main\\resources\\Four.png";
-    String five = "src\\main\\resources\\Five.png";
-    String seven = "src\\main\\resources\\Seven.png";
-    String eight = "src\\main\\resources\\Eight.png";
-    String ten = "src\\main\\resources\\Ten.png";
-    String eleven = "src\\main\\resources\\Eleven.png";
-    String twelve = "src\\main\\resources\\Twelve.png";
-    String apologies = "src\\main\\resources\\Apologies!.png";
+    String deck = Apologies.getResourcePath("Deck.png");
+    String one = Apologies.getResourcePath("One.png");
+    String two = Apologies.getResourcePath("Two.png");
+    String three = Apologies.getResourcePath("Three.png");
+    String four = Apologies.getResourcePath("Four.png");
+    String five = Apologies.getResourcePath("Five.png");
+    String seven = Apologies.getResourcePath("Seven.png");
+    String eight = Apologies.getResourcePath("Eight.png");
+    String ten = Apologies.getResourcePath("Ten.png");
+    String eleven = Apologies.getResourcePath("Eleven.png");
+    String twelve = Apologies.getResourcePath("Twelve.png");
+    String apologies = Apologies.getResourcePath("Apologies!.png");
     String cards[] = {one,two,three,four,five,seven,eight,ten,eleven,twelve,apologies};
 
     private int x;

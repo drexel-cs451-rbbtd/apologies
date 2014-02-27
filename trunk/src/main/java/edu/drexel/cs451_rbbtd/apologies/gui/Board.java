@@ -1,4 +1,5 @@
-package edu.drexel.cs451_rbbtd.apologies.gui; /**
+package edu.drexel.cs451_rbbtd.apologies.gui;
+/**
  * Created by Ben on 2/8/14.
  */
 
@@ -22,10 +23,10 @@ public class Board extends JPanel implements MouseListener{
     private int selection;
     private int t = 40; // tile size
 
-    String yellowPawn = "src\\main\\resources\\YellowPawn.png";
-    String greenPawn = "src\\main\\resources\\GreenPawn.png";
-    String redPawn = "src\\main\\resources\\RedPawn.png";
-    String bluePawn = "src\\main\\resources\\BluePawn.png";
+    String yellowPawn = Apologies.getResourcePath("YellowPawn.png");
+    String greenPawn = Apologies.getResourcePath("GreenPawn.png");
+    String redPawn = Apologies.getResourcePath("RedPawn.png");
+    String bluePawn = Apologies.getResourcePath("BluePawn.png");
 
     public Board(Image img) {
 
