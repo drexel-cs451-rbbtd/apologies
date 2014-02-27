@@ -18,7 +18,7 @@ public class Apologies extends JFrame{
         add(new Board(board));
 
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 625);
+        setSize(600, 675);
         setLocationRelativeTo(null);
         setTitle("Apologies");
         setResizable(false);
