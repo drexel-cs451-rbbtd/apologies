@@ -289,7 +289,11 @@ public class Board extends JPanel implements MouseListener{
         JPanel TWO_PANEL = new JPanel();
         JRadioButton TWO_A = new JRadioButton("Start a Pawn");
         JRadioButton TWO_B = new JRadioButton("Move a pawn forward 2 spaces");
-        TWO_PANEL.add(TWO_A); TWO_PANEL.add(TWO_B);
+        ButtonGroup TWO_OPTIONS = new ButtonGroup();
+        TWO_OPTIONS.add(TWO_A);
+        TWO_OPTIONS.add(TWO_B);
+        TWO_PANEL.add(TWO_A);
+        TWO_PANEL.add(TWO_B);
 
         // Set current panel
         this.setLayout(new BorderLayout());
