@@ -1,9 +1,11 @@
-package edu.drexel.cs451_rbbtd.apologies.gui; /**
+package edu.drexel.cs451_rbbtd.apologies.gui;
+/**
  * Created by Ben on 2/8/14.
  */
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.File;
 
 
 public class Apologies extends JFrame{
@@ -12,7 +14,8 @@ public class Apologies extends JFrame{
     public Apologies() {
 
         // Initialize Art Assets
-        String boardIMG = "src\\main\\resources\\ApologiesBoard.png";
+        String boardIMG = getResourcePath("ApologiesBoard.png");
+
         Image board = new ImageIcon(boardIMG).getImage();
 
         add(new Board(board));
@@ -26,14 +29,13 @@ public class Apologies extends JFrame{
 
     }
 
+    public static String getResourcePath(String resourceFilename) {
+        return "src" + File.separator + "main" + File.separator + "resources" + File.separator + resourceFilename;
+    }
+
     public static void main(String[] args) {
         Apologies apologies = new Apologies();
     }
-
-
-
-
-
 
 
 } // end class
