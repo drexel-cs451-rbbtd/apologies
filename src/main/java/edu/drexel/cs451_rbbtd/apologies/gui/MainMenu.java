@@ -16,7 +16,8 @@ public class MainMenu {
         newGameButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
-                System.out.println("this should switch to the player setup window");
+               // System.out.println("this should switch to the player setup window");
+                new PlayerSetup();
             }
         });
 
