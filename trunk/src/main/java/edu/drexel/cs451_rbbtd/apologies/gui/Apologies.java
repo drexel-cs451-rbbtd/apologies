@@ -5,25 +5,24 @@ import java.awt.*;
 import java.io.File;
 
 
-public class Apologies extends JFrame{
+public class Apologies extends JFrame {
 
 
     public Apologies() {
-
-        // Initialize Art Assets
+        // initialize art assets
         String boardIMG = getResourcePath("ApologiesBoard.png");
 
         Image board = new ImageIcon(boardIMG).getImage();
 
         add(new Board(board));
 
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setSize(600, 675);
-        setLocationRelativeTo(null);
         setTitle("Apologies");
+        setSize(600, 675);
         setResizable(false);
-        setVisible(true);
+        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        setLocationRelativeTo(null);
 
+        setVisible(true);
     }
 
     public static String getResourcePath(String resourceFilename) {

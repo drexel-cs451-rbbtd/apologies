@@ -9,7 +9,7 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 
-public class Board extends JPanel implements MouseListener{
+public class Board extends JPanel implements MouseListener {
 
     private Pawn[] pawns;
     private int PawnCount = 16;

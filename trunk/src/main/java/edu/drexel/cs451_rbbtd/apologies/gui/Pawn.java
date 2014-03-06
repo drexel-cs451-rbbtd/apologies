@@ -3,7 +3,7 @@ package edu.drexel.cs451_rbbtd.apologies.gui;
 import javax.swing.*;
 import java.awt.*;
 
-public class Pawn{
+public class Pawn {
 
     private int x;
     private int y;
