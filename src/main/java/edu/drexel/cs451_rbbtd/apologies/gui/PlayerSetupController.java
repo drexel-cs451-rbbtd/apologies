@@ -1,16 +1,14 @@
+package edu.drexel.cs451_rbbtd.apologies.gui;
+
 import java.util.ArrayList;
 
-import javax.swing.ButtonGroup;
-import javax.swing.ButtonModel;
-import javax.swing.JCheckBox;
-import javax.swing.JRadioButton;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 
 public class PlayerSetupController {
 
 	private Boolean checkNumPlayers(ArrayList<JCheckBox> checkboxGroup) {
-		//check to make sure atleast 2 colors are checked
+		// check to make sure at least 2 colors are checked
 		int count = 0;
 		
 		for (JCheckBox check : checkboxGroup) {
@@ -25,7 +23,7 @@ public class PlayerSetupController {
 	}
 	
 	private Boolean checkFirst(ArrayList<JCheckBox> checkboxGroup, ArrayList<JRadioButton> buttons) {
-		//check to make sure one of the checked colors is selected to go first
+		// check to make sure one of the checked colors is selected to go first
 		for (int i = 0; i < buttons.size(); i++) { 
 			if (buttons.get(i).isSelected()) {
 				if (!checkboxGroup.get(i).isSelected())
@@ -37,7 +35,7 @@ public class PlayerSetupController {
 	}
 	
 	private Boolean checkNames(ArrayList<JCheckBox> checkboxGroup, ArrayList<JTextField> names) {
-		//check to make sure each checked color has a name
+		// check to make sure each checked color has a name
 		for (int i = 0; i < checkboxGroup.size(); i++) {
 			if (checkboxGroup.get(i).isSelected()) {
 				if (names.get(i).getText().trim().equals(""))
@@ -49,7 +47,7 @@ public class PlayerSetupController {
 	}
 	
 	public Boolean check(ArrayList<JCheckBox> checks, ArrayList<JRadioButton> buttons, ArrayList<JTextField> names) {
-		//return true only if all 3 tests pass
+		// return true only if all 3 tests pass
 		boolean enoughPlayers = checkNumPlayers(checks);
 		boolean firstPicked = checkFirst(checks, buttons);
 		boolean namesEntered = checkNames(checks, names);
