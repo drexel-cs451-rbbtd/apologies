@@ -18,7 +18,6 @@ public class Pawn {
         this.x = x;
         this.y = y;
         this.positions = positions;
-
     }
 
 
