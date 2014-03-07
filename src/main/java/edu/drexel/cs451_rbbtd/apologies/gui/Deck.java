@@ -36,7 +36,7 @@ public class Deck {
         Random generator = new Random();
         int i = generator.nextInt(11);
         String rand = cards[i];
-        Card card = new Card(295, 210, rand);
+        Card card = new Card(295, 210, rand, i);
         return card;
 
     }

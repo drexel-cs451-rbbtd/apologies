@@ -369,7 +369,7 @@ public class Board extends JPanel implements MouseListener {
                    && e.getY() > pawns[i].getY() && e.getY() < pawns[i].getY()+pawnClickAreaHeight){
 
                         // Move Pawn Forward a Space
-                        pawns[i].moveForward();
+                        pawns[i].Move(currentCard.getNumber());
                         repaint();
                 }
             }
