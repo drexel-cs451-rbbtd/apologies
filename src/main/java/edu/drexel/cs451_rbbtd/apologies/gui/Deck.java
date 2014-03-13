@@ -7,6 +7,7 @@ import java.util.Random;
 public class Deck {
 
     String deckImagePath = Apologies.getResourcePath("Deck.png");
+
     String oneImagePath = Apologies.getResourcePath("One.png");
     String twoImagePath = Apologies.getResourcePath("Two.png");
     String threeImagePath = Apologies.getResourcePath("Three.png");
@@ -29,7 +30,6 @@ public class Deck {
         image = ii.getImage();
         this.x = x;
         this.y = y;
-
     }
 
     public Card drawCard() {

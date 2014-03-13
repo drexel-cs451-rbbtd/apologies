@@ -53,6 +53,5 @@ public class PlayerSetupController {
 		boolean namesEntered = checkNames(checks, names);
 		
 		return (enoughPlayers && firstPicked && namesEntered);
-		
 	}
 }

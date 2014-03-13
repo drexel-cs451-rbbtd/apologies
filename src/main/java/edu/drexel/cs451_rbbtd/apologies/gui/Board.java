@@ -76,7 +76,6 @@ public class Board extends JPanel implements MouseListener {
         pawns.add(new Pawn(100, 375, bluePositions, bluePawn));
 
         deck = new Deck(165, 210);
-
     }
 
     // Draw Background Image
@@ -117,11 +116,11 @@ public class Board extends JPanel implements MouseListener {
         final int cardClickAreaHeight = 160;
 
         // Left Click
-        if((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK){
+        if ((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK){
 
-            // Left Click pawn - Iterate through pawns array
+            // Left Click pawn - Iterate through pawns
             for (Pawn pawn: pawns) {
-                if(e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
+                if (e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
                    && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight){
 
                         // Move Pawn Forward a Space
@@ -131,7 +130,7 @@ public class Board extends JPanel implements MouseListener {
             }
 
             // Left Click deck – draw card
-            if(e.getX() > deck.getX() && e.getX() < deck.getX()+cardClickAreaWidth
+            if (e.getX() > deck.getX() && e.getX() < deck.getX()+cardClickAreaWidth
                     && e.getY() > deck.getY() && e.getY() < deck.getY()+cardClickAreaHeight){
 
                     // Draw a card and paint it on the board
@@ -142,11 +141,11 @@ public class Board extends JPanel implements MouseListener {
         }
 
         // Right Click - just for debugging purposes
-        if((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK){
+        if ((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK){
 
             // Iterate through pawns
             for (Pawn pawn : pawns) {
-                if(e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
+                if (e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
                         && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight){
 
                     // Move pawn back a space
