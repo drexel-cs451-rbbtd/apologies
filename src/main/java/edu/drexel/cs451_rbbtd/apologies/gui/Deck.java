@@ -6,26 +6,26 @@ import java.util.Random;
 
 public class Deck {
 
-    String deck = Apologies.getResourcePath("Deck.png");
-    String one = Apologies.getResourcePath("One.png");
-    String two = Apologies.getResourcePath("Two.png");
-    String three = Apologies.getResourcePath("Three.png");
-    String four = Apologies.getResourcePath("Four.png");
-    String five = Apologies.getResourcePath("Five.png");
-    String seven = Apologies.getResourcePath("Seven.png");
-    String eight = Apologies.getResourcePath("Eight.png");
-    String ten = Apologies.getResourcePath("Ten.png");
-    String eleven = Apologies.getResourcePath("Eleven.png");
-    String twelve = Apologies.getResourcePath("Twelve.png");
-    String apologies = Apologies.getResourcePath("Apologies!.png");
-    String cards[] = {one,two,three,four,five,seven,eight,ten,eleven,twelve,apologies};
+    String deckImagePath = Apologies.getResourcePath("Deck.png");
+    String oneImagePath = Apologies.getResourcePath("One.png");
+    String twoImagePath = Apologies.getResourcePath("Two.png");
+    String threeImagePath = Apologies.getResourcePath("Three.png");
+    String fourImagePath = Apologies.getResourcePath("Four.png");
+    String fiveImagePath = Apologies.getResourcePath("Five.png");
+    String sevenImagePath = Apologies.getResourcePath("Seven.png");
+    String eightImagePath = Apologies.getResourcePath("Eight.png");
+    String tenImagePath = Apologies.getResourcePath("Ten.png");
+    String elevenImagePath = Apologies.getResourcePath("Eleven.png");
+    String twelveImagePath = Apologies.getResourcePath("Twelve.png");
+    String apologiesImagePath = Apologies.getResourcePath("Apologies!.png");
+    String cardImagePaths[] = {oneImagePath,twoImagePath,threeImagePath,fourImagePath,fiveImagePath,sevenImagePath,eightImagePath,tenImagePath,elevenImagePath,twelveImagePath,apologiesImagePath};
 
     private int x;
     private int y;
     private Image image;
 
     public Deck(int x, int y) {
-        ImageIcon ii = new ImageIcon(deck);
+        ImageIcon ii = new ImageIcon(deckImagePath);
         image = ii.getImage();
         this.x = x;
         this.y = y;
@@ -35,10 +35,9 @@ public class Deck {
     public Card drawCard() {
         Random generator = new Random();
         int i = generator.nextInt(11);
-        String rand = cards[i];
-        Card card = new Card(295, 210, rand, i);
+        String cardImagePath = cardImagePaths[i];
+        Card card = new Card(295, 210, cardImagePath, i);
         return card;
-
     }
 
     public int getX() {
