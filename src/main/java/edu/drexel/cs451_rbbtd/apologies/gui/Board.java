@@ -2,17 +2,18 @@ package edu.drexel.cs451_rbbtd.apologies.gui;
 
 import com.sun.jmx.remote.security.JMXPluggableAuthenticator;
 
+import java.util.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.InputEvent;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.List;
 
 
 public class Board extends JPanel implements MouseListener {
 
-    private Pawn[] pawns;
-    private int PawnCount = 16;
+    private List<Pawn> pawns;
     private Image img;
     private Deck deck;
     private Card currentCard;
@@ -56,23 +57,23 @@ public class Board extends JPanel implements MouseListener {
 
 
         // Initialize pawns
-        pawns = new Pawn[PawnCount];
-        pawns[0] = new Pawn(125, 100, yellowPositions, yellowPawn);
-        pawns[1] = new Pawn(165, 100, yellowPositions, yellowPawn);
-        pawns[2] = new Pawn(125, 60, yellowPositions, yellowPawn);
-        pawns[3] = new Pawn(165, 60, yellowPositions, yellowPawn);
-        pawns[4] = new Pawn(430, 170, greenPositions, greenPawn);
-        pawns[5] = new Pawn(470, 170, greenPositions, greenPawn);
-        pawns[6] = new Pawn(430, 130, greenPositions, greenPawn);
-        pawns[7] = new Pawn(470, 130, greenPositions, greenPawn);
-        pawns[8] = new Pawn(365, 480, redPositions, redPawn);
-        pawns[9] = new Pawn(405, 480, redPositions, redPawn);
-        pawns[10] = new Pawn(365, 440, redPositions, redPawn);
-        pawns[11] = new Pawn(405, 440, redPositions, redPawn);
-        pawns[12] = new Pawn(60, 415, bluePositions, bluePawn);
-        pawns[13] = new Pawn(100, 415, bluePositions, bluePawn);
-        pawns[14] = new Pawn(60, 375, bluePositions, bluePawn);
-        pawns[15] = new Pawn(100, 375, bluePositions, bluePawn);
+        pawns = new ArrayList<Pawn>();
+        pawns.add(new Pawn(125, 100, yellowPositions, yellowPawn));
+        pawns.add(new Pawn(165, 100, yellowPositions, yellowPawn));
+        pawns.add(new Pawn(125, 60, yellowPositions, yellowPawn));
+        pawns.add(new Pawn(165, 60, yellowPositions, yellowPawn));
+        pawns.add(new Pawn(430, 170, greenPositions, greenPawn));
+        pawns.add(new Pawn(470, 170, greenPositions, greenPawn));
+        pawns.add(new Pawn(430, 130, greenPositions, greenPawn));
+        pawns.add(new Pawn(470, 130, greenPositions, greenPawn));
+        pawns.add(new Pawn(365, 480, redPositions, redPawn));
+        pawns.add(new Pawn(405, 480, redPositions, redPawn));
+        pawns.add(new Pawn(365, 440, redPositions, redPawn));
+        pawns.add(new Pawn(405, 440, redPositions, redPawn));
+        pawns.add(new Pawn(60, 415, bluePositions, bluePawn));
+        pawns.add(new Pawn(100, 415, bluePositions, bluePawn));
+        pawns.add(new Pawn(60, 375, bluePositions, bluePawn));
+        pawns.add(new Pawn(100, 375, bluePositions, bluePawn));
 
         deck = new Deck(165, 210);
 
@@ -90,8 +91,8 @@ public class Board extends JPanel implements MouseListener {
         Graphics2D g2d = (Graphics2D)g;
 
         // Paint Pawns
-        for(int i = 0; i < PawnCount ; i++){
-            g2d.drawImage(pawns[i].getImage(), pawns[i].getX(), pawns[i].getY(), this);
+        for (Pawn pawn : pawns) {
+            g2d.drawImage(pawn.getImage(), pawn.getX(), pawn.getY(), this);
         }
 
         // Paint Deck
@@ -107,7 +108,7 @@ public class Board extends JPanel implements MouseListener {
     }
 
 
-    // Handle Mouse Clicks
+    // Handle mouse clicks
     public void mouseClicked(MouseEvent e) {
 
         final int pawnClickAreaWidth = 50;
@@ -119,17 +120,17 @@ public class Board extends JPanel implements MouseListener {
         if((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK){
 
             // Left Click pawn - Iterate through pawns array
-            for(int i = 0; i < PawnCount ; i++){
-                if(e.getX() > pawns[i].getX() && e.getX() < pawns[i].getX()+pawnClickAreaWidth
-                   && e.getY() > pawns[i].getY() && e.getY() < pawns[i].getY()+pawnClickAreaHeight){
+            for (Pawn pawn: pawns) {
+                if(e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
+                   && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight){
 
                         // Move Pawn Forward a Space
-                        pawns[i].Move(currentCard.getNumber());
+                        pawn.Move(currentCard.getNumber());
                         repaint();
                 }
             }
 
-            // Left Click Deck - draw card
+            // Left Click deck – draw card
             if(e.getX() > deck.getX() && e.getX() < deck.getX()+cardClickAreaWidth
                     && e.getY() > deck.getY() && e.getY() < deck.getY()+cardClickAreaHeight){
 
@@ -143,14 +144,14 @@ public class Board extends JPanel implements MouseListener {
         // Right Click - just for debugging purposes
         if((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK){
 
-            // Iterate through pawns array
-            for(int i = 0; i < PawnCount ; i++){
-                if(e.getX() > pawns[i].getX() && e.getX() < pawns[i].getX()+pawnClickAreaWidth
-                   && e.getY() > pawns[i].getY() && e.getY() < pawns[i].getY()+pawnClickAreaHeight){
+            // Iterate through pawns
+            for (Pawn pawn : pawns) {
+                if(e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
+                        && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight){
 
-                        // Move Pawn Back a Space
-                        pawns[i].moveBack();
-                        repaint();
+                    // Move pawn back a space
+                    pawn.moveBack();
+                    repaint();
                 }
             }
         }

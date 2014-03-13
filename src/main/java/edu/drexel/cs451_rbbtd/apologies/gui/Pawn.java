@@ -72,7 +72,7 @@ public class Pawn {
     }
 
     public void Five(){
-        for (int i = 0; i < 5;i++) {
+        for (int i = 0; i < 5; i++) {
             this.moveForward();
         }
     }
@@ -82,25 +82,25 @@ public class Pawn {
     }
 
     public void Eight(){
-        for (int i = 0; i < 8;i++) {
+        for (int i = 0; i < 8; i++) {
             this.moveForward();
         }
     }
 
     public void Ten(){
-        for (int i = 0; i < 10;i++) {
+        for (int i = 0; i < 10; i++) {
             this.moveForward();
         }
     }
 
     public void Eleven(){ // unimplemented second function swap
-        for (int i = 0; i < 11;i++) {
+        for (int i = 0; i < 11; i++) {
             this.moveForward();
         }
     }
 
     public void Twelve(){
-        for (int i = 0; i < 12;i++) {
+        for (int i = 0; i < 12; i++) {
             this.moveForward();
         }
     }
