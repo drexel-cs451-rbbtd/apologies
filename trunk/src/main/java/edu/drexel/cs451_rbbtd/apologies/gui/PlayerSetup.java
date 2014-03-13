@@ -40,11 +40,9 @@ public class PlayerSetup extends JFrame {
 		prepareGUI();
 		setupButtons();
 		addComponents();
-		
 	}
 	
 	private void prepareGUI() {
-
 		this.setTitle("Player Setup");
 		this.setSize(500,375);
 		this.setResizable(false);
@@ -142,9 +140,6 @@ public class PlayerSetup extends JFrame {
 	}
 	
 	private void addComponents() {
-
-		
-		
 		nameRed = new JTextField(15);
 		nameYellow = new JTextField(15);
 		nameGreen = new JTextField(15);
@@ -165,17 +160,16 @@ public class PlayerSetup extends JFrame {
 	}
 	
 	private void clearForm() {
-		//clear checkboxes
+		// clear checkboxes
 		for (JCheckBox check : checkGroup) {
 			check.setSelected(false);
 		}
-		//clear textfields
+		// clear text fields
 		for (JTextField name : names) {
 			name.setText("");
 		}
-		//clear radio buttons
+		// clear radio buttons
 		radioGroup.clearSelection();
-
 	}
 
 }
