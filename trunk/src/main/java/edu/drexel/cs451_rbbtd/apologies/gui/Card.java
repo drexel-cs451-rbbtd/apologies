@@ -23,7 +23,6 @@ public class Card {
         this.x = card.getX();
         this.y = card.getY();
         this.cardNum = card.getNumber();
-
     }
 
     public int getX() {
