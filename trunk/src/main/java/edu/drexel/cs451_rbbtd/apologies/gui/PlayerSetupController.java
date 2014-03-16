@@ -54,4 +54,19 @@ public class PlayerSetupController {
 		
 		return (enoughPlayers && firstPicked && namesEntered);
 	}
+   
+   public ArrayList<PlayerColor> getChecked(ArrayList<JCheckBox> checks) {
+		ArrayList<PlayerColor> playerColors = new ArrayList<PlayerColor>();
+		if (checks.get(0).isSelected())
+			playerColors.add(PlayerColor.RED);
+		if (checks.get(1).isSelected())
+			playerColors.add(PlayerColor.YELLOW);
+		if (checks.get(2).isSelected())
+			playerColors.add(PlayerColor.GREEN);
+		if (checks.get(3).isSelected())
+			playerColors.add(PlayerColor.BLUE);
+		
+		return playerColors;
+	}
+   
 }
