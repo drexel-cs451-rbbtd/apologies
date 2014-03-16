@@ -64,16 +64,18 @@ public class PlayerSetup extends JFrame {
 		
 		start.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				
-				System.out.println("START");
-				System.out.println(c.check(checkGroup, rads, names));
+				Boolean isSetup = c.check(checkGroup, rads, names);
+				if (isSetup) {
+					ArrayList<PlayerColor> colors = c.getChecked(checkGroup);
+					new Apologies(colors);
+					dispose();
+				}
 			}});
 		
 		cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clearForm();
 				dispose();
-				System.out.println("CANCEL");
 			}});
 		
 		//initialize check boxes and add to groups
