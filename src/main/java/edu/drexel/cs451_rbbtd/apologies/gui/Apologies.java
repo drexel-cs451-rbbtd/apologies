@@ -8,13 +8,13 @@ import java.io.File;
 public class Apologies extends JFrame {
 
 
-    public Apologies() {
+    public Apologies(ArrayList<PlayerColor> playerColors) {
         // initialize art assets
         String boardIMG = getResourcePath("ApologiesBoard.png");
 
         Image board = new ImageIcon(boardIMG).getImage();
 
-        add(new Board(board));
+        add(new Board(board, playerColors));
 
         setTitle("Apologies");
         setSize(600, 675);
@@ -29,9 +29,7 @@ public class Apologies extends JFrame {
         return "src" + File.separator + "main" + File.separator + "resources" + File.separator + resourceFilename;
     }
 
-    public static void main(String[] args) {
-        Apologies apologies = new Apologies();
-    }
+
 
 
 } // end class
