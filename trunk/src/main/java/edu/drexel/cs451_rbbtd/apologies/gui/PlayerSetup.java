@@ -70,6 +70,9 @@ public class PlayerSetup extends JFrame {
 					new Apologies(colors);
 					dispose();
 				}
+        else {
+					JOptionPane.showMessageDialog(controlPanel, "Setup not finished", "Setup Error", JOptionPane.ERROR_MESSAGE);
+				}
 			}});
 		
 		cancel.addActionListener(new ActionListener() {
