@@ -26,7 +26,7 @@ public class Board extends JPanel implements MouseListener {
     String redPawn = Apologies.getResourcePath("RedPawn.png");
     String bluePawn = Apologies.getResourcePath("BluePawn.png");
 
-    public Board(Image img) {
+    public Board(Image img, ArrayList<PlayerColor> playerColors) {
 
         // Initialize positions
         int yellowPositions[][] = positions.yellowPositions;
@@ -58,22 +58,30 @@ public class Board extends JPanel implements MouseListener {
 
         // Initialize pawns
         pawns = new ArrayList<Pawn>();
-        pawns.add(new Pawn(125, 100, yellowPositions, yellowPawn));
-        pawns.add(new Pawn(165, 100, yellowPositions, yellowPawn));
-        pawns.add(new Pawn(125, 60, yellowPositions, yellowPawn));
-        pawns.add(new Pawn(165, 60, yellowPositions, yellowPawn));
-        pawns.add(new Pawn(430, 170, greenPositions, greenPawn));
-        pawns.add(new Pawn(470, 170, greenPositions, greenPawn));
-        pawns.add(new Pawn(430, 130, greenPositions, greenPawn));
-        pawns.add(new Pawn(470, 130, greenPositions, greenPawn));
-        pawns.add(new Pawn(365, 480, redPositions, redPawn));
-        pawns.add(new Pawn(405, 480, redPositions, redPawn));
-        pawns.add(new Pawn(365, 440, redPositions, redPawn));
-        pawns.add(new Pawn(405, 440, redPositions, redPawn));
-        pawns.add(new Pawn(60, 415, bluePositions, bluePawn));
-        pawns.add(new Pawn(100, 415, bluePositions, bluePawn));
-        pawns.add(new Pawn(60, 375, bluePositions, bluePawn));
-        pawns.add(new Pawn(100, 375, bluePositions, bluePawn));
+        if (playerColors.contains(PlayerColor.YELLOW)) {
+          pawns.add(new Pawn(125, 100, yellowPositions, yellowPawn));
+          pawns.add(new Pawn(165, 100, yellowPositions, yellowPawn));
+          pawns.add(new Pawn(125, 60, yellowPositions, yellowPawn));
+          pawns.add(new Pawn(165, 60, yellowPositions, yellowPawn));
+        }
+        if (playerColors.contains(PlayerColor.GREEN)) {
+          pawns.add(new Pawn(430, 170, greenPositions, greenPawn));
+          pawns.add(new Pawn(470, 170, greenPositions, greenPawn));
+          pawns.add(new Pawn(430, 130, greenPositions, greenPawn));
+          pawns.add(new Pawn(470, 130, greenPositions, greenPawn));
+        }
+        if (playerColors.contains(PlayerColor.RED)) {
+          pawns.add(new Pawn(365, 480, redPositions, redPawn));
+          pawns.add(new Pawn(405, 480, redPositions, redPawn));
+          pawns.add(new Pawn(365, 440, redPositions, redPawn));
+          pawns.add(new Pawn(405, 440, redPositions, redPawn));
+        }
+        if (playerColors.contains(PlayerColor.BLUE)) {
+          pawns.add(new Pawn(60, 415, bluePositions, bluePawn));
+          pawns.add(new Pawn(100, 415, bluePositions, bluePawn));
+          pawns.add(new Pawn(60, 375, bluePositions, bluePawn));
+          pawns.add(new Pawn(100, 375, bluePositions, bluePawn));
+        }
 
         deck = new Deck(165, 210);
     }
