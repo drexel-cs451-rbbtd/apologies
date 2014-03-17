@@ -3,10 +3,10 @@ package edu.drexel.cs451_rbbtd.apologies.gui;
 import javax.swing.*;
 import java.awt.*;
 import java.io.File;
+import java.util.ArrayList;
 
 
 public class Apologies extends JFrame {
-
 
     public Apologies(ArrayList<PlayerColor> playerColors) {
         // initialize art assets
@@ -28,8 +28,5 @@ public class Apologies extends JFrame {
     public static String getResourcePath(String resourceFilename) {
         return "src" + File.separator + "main" + File.separator + "resources" + File.separator + resourceFilename;
     }
-
-
-
 
 } // end class

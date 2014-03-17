@@ -19,7 +19,7 @@ public class Deck {
     String elevenImagePath = Apologies.getResourcePath("Eleven.png");
     String twelveImagePath = Apologies.getResourcePath("Twelve.png");
     String apologiesImagePath = Apologies.getResourcePath("Apologies!.png");
-    String cardImagePaths[] = {oneImagePath,twoImagePath,threeImagePath,fourImagePath,fiveImagePath,sevenImagePath,eightImagePath,tenImagePath,elevenImagePath,twelveImagePath,apologiesImagePath};
+    String cardImagePaths[] = {oneImagePath, twoImagePath, threeImagePath, fourImagePath, fiveImagePath, sevenImagePath, eightImagePath, tenImagePath, elevenImagePath, twelveImagePath, apologiesImagePath};
 
     private int x;
     private int y;

@@ -1,8 +1,5 @@
 package edu.drexel.cs451_rbbtd.apologies.gui;
 
-/**
- * Created by Ben on 3/7/14.
- */
 public class Positions {
     private int t = 40; // tile size
 

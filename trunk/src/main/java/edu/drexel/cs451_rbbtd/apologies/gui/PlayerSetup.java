@@ -44,7 +44,7 @@ public class PlayerSetup extends JFrame {
 	
 	private void prepareGUI() {
 		this.setTitle("Player Setup");
-		this.setSize(500,375);
+		this.setSize(500, 375);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
@@ -59,27 +59,29 @@ public class PlayerSetup extends JFrame {
 		start = new JButton("Start");
 		cancel = new JButton("Cancel");
 		
-		start.setPreferredSize(new Dimension(150,45));
-		cancel.setPreferredSize(new Dimension(150,45));
-		
-		start.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				Boolean isSetup = c.check(checkGroup, rads, names);
-				if (isSetup) {
-					ArrayList<PlayerColor> colors = c.getChecked(checkGroup);
-					new Apologies(colors);
-					dispose();
-				}
-        else {
-					JOptionPane.showMessageDialog(controlPanel, "Setup not finished", "Setup Error", JOptionPane.ERROR_MESSAGE);
-				}
-			}});
-		
-		cancel.addActionListener(new ActionListener() {
+		start.setPreferredSize(new Dimension(150, 45));
+		cancel.setPreferredSize(new Dimension(150, 45));
+
+        start.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                Boolean isSetup = c.check(checkGroup, rads, names);
+                if (isSetup) {
+                    ArrayList<PlayerColor> colors = c.getChecked(checkGroup);
+                    new Apologies(colors);
+                    dispose();
+                }
+                else {
+                    JOptionPane.showMessageDialog(controlPanel, "Setup not finished", "Setup Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        });
+
+        cancel.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				clearForm();
 				dispose();
-			}});
+			}
+        });
 		
 		//initialize check boxes and add to groups
 		checkRed = new JCheckBox();
