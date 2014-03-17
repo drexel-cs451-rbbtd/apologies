@@ -17,7 +17,7 @@ public class MainMenu {
             @Override
             public void actionPerformed(ActionEvent actionEvent) {
                // System.out.println("this should switch to the player setup window");
-                new PlayerSetup();
+               new PlayerSetup();
             }
         });
 
@@ -45,7 +45,7 @@ public class MainMenu {
     private void setUpGUI() {
         rootPanel = new JPanel();
         rootPanel.setLayout(new BoxLayout(rootPanel, BoxLayout.PAGE_AXIS));
-        rootPanel.setBorder(BorderFactory.createEmptyBorder(15,15,15,15));
+        rootPanel.setBorder(BorderFactory.createEmptyBorder(15, 15, 15, 15));
 
         setUpTitle();
         rootPanel.add(Box.createVerticalStrut(10));
