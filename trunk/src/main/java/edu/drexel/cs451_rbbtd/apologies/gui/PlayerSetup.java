@@ -67,7 +67,8 @@ public class PlayerSetup extends JFrame {
                 Boolean isSetup = c.check(checkGroup, rads, names);
                 if (isSetup) {
                     ArrayList<PlayerColor> colors = c.getChecked(checkGroup);
-                    new Apologies(colors);
+                    PlayerColor first = c.getFirst(rads);
+                    new Apologies(colors, first);
                     dispose();
                 }
                 else {
@@ -89,25 +90,25 @@ public class PlayerSetup extends JFrame {
 		checkGreen = new JCheckBox();
 		checkBlue = new JCheckBox();
 		checkGroup.add(checkRed);
-		checkGroup.add(checkYellow);
+        checkGroup.add(checkBlue);
+        checkGroup.add(checkYellow);
 		checkGroup.add(checkGreen);
-		checkGroup.add(checkBlue);
-		
+
 		//initialize radio buttons and add to groups
 		firstRed = new JRadioButton();
-		firstYellow = new JRadioButton();
+        firstBlue = new JRadioButton();
+        firstYellow = new JRadioButton();
 		firstGreen = new JRadioButton();
-		firstBlue = new JRadioButton();
 		rads.add(firstRed);
-		rads.add(firstYellow);
+        rads.add(firstBlue);
+        rads.add(firstYellow);
 		rads.add(firstGreen);
-		rads.add(firstBlue);
-		
+
 		radioGroup = new ButtonGroup();
 		radioGroup.add(firstRed);
-		radioGroup.add(firstYellow);
+        radioGroup.add(firstBlue);
+        radioGroup.add(firstYellow);
 		radioGroup.add(firstGreen);
-		radioGroup.add(firstBlue);
 	}
 	
 	private JPanel addLayout(JCheckBox check, JRadioButton radio, Color color, JTextField text) {
@@ -152,15 +153,15 @@ public class PlayerSetup extends JFrame {
 		nameGreen = new JTextField(15);
 		nameBlue = new JTextField(15);
 		names.add(nameRed);
-		names.add(nameYellow);
+        names.add(nameBlue);
+        names.add(nameYellow);
 		names.add(nameGreen);
-		names.add(nameBlue);
-		
+
 		controlPanel.add(addLabels());
 		controlPanel.add(addLayout(checkRed, firstRed, Color.RED, nameRed));
-		controlPanel.add(addLayout(checkYellow, firstYellow, Color.YELLOW, nameYellow));
+        controlPanel.add(addLayout(checkBlue, firstBlue, Color.BLUE, nameBlue));
+        controlPanel.add(addLayout(checkYellow, firstYellow, Color.YELLOW, nameYellow));
 		controlPanel.add(addLayout(checkGreen, firstGreen, Color.GREEN, nameGreen));
-		controlPanel.add(addLayout(checkBlue, firstBlue, Color.BLUE, nameBlue));
 		controlPanel.add(addButtons());
 		
 		this.setVisible(true);
