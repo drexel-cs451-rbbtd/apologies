@@ -10,16 +10,21 @@ public class Pawn {
     private Image image;
     private int space = -1; // Records how many spaces forward from start location the pawn has traveled
     private int positions[][];
+    private PlayerColor color;
 
 
-    public Pawn(int x, int y, int[][] positions, String path) {
+    public Pawn(int x, int y, int[][] positions, String path, PlayerColor color) {
         ImageIcon ii = new ImageIcon(path);
         image = ii.getImage();
         this.x = x;
         this.y = y;
         this.positions = positions;
+        this.color = color;
     }
 
+    public PlayerColor getColor() {
+        return this.color;
+    }
 
     public void moveForward() {
         space +=1;

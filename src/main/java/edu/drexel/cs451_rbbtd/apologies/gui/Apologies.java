@@ -8,13 +8,13 @@ import java.util.ArrayList;
 
 public class Apologies extends JFrame {
 
-    public Apologies(ArrayList<PlayerColor> playerColors) {
+    public Apologies(ArrayList<PlayerColor> playerColors, PlayerColor first) {
         // initialize art assets
-        String boardIMG = getResourcePath("ApologiesBoard.png");
-
+       String boardIMG = getResourcePath("ApologiesBoard.png");
+        //String boardIMG = "resources/ApologiesBoard.png";
         Image board = new ImageIcon(boardIMG).getImage();
 
-        add(new Board(board, playerColors));
+        add(new Board(board, playerColors, first));
 
         setTitle("Apologies");
         setSize(600, 675);

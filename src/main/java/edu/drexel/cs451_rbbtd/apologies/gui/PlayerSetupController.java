@@ -60,13 +60,28 @@ public class PlayerSetupController {
 		if (checks.get(0).isSelected())
 			playerColors.add(PlayerColor.RED);
 		if (checks.get(1).isSelected())
-			playerColors.add(PlayerColor.YELLOW);
-		if (checks.get(2).isSelected())
-			playerColors.add(PlayerColor.GREEN);
-		if (checks.get(3).isSelected())
 			playerColors.add(PlayerColor.BLUE);
+		if (checks.get(2).isSelected())
+			playerColors.add(PlayerColor.YELLOW);
+		if (checks.get(3).isSelected())
+			playerColors.add(PlayerColor.GREEN);
 		
 		return playerColors;
 	}
+
+    public PlayerColor getFirst(ArrayList<JRadioButton> buttons) {
+        if (buttons.get(0).isSelected())
+            return PlayerColor.RED;
+        if (buttons.get(1).isSelected())
+            return PlayerColor.BLUE;
+        if (buttons.get(2).isSelected())
+            return PlayerColor.YELLOW;
+        if (buttons.get(3).isSelected())
+            return PlayerColor.GREEN;
+
+        return null;
+
+    }
+
    
 }
