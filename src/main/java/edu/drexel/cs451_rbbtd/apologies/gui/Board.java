@@ -30,6 +30,12 @@ public class Board extends JPanel implements MouseListener {
     private ArrayList<PlayerColor> players = new ArrayList<PlayerColor>();
     private int specialSequence = 0;
 
+    // For pawn swapping logic
+    private Pawn pawnOne;
+    private Pawn pawnTwo;
+    private int indexOne;
+    private int indexTwo;
+
     String yellowPawn = Apologies.getResourcePath("YellowPawn.png");
     String greenPawn = Apologies.getResourcePath("GreenPawn.png");
     String redPawn = Apologies.getResourcePath("RedPawn.png");
@@ -159,16 +165,33 @@ public class Board extends JPanel implements MouseListener {
         if ((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK){
 
             // Left Click pawn - Iterate through pawns
+            int count = 0;
             for (Pawn pawn: pawns) {
+                count++;
                 if (e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
                    && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable && (pawn.getColor() == players.get(0))){
 
                         // If card is an eleven or sorry then just select the pawn
-                        if (currentCard.getNumber() > 0){
-                                selectionX = pawn.getX() + 15;
-                                selectionY = pawn.getY() + 10;
-                                repaint();
-                                break;
+                        if (currentCard.getNumber() == 8 || currentCard.getNumber() == 10 && specialSequence == 0){
+                            selectionX = pawn.getX() + 15;
+                            selectionY = pawn.getY() + 10;
+                            specialSequence++;
+                            pawnOne = pawns.get(count);
+                            indexOne = count;
+                            repaint();
+                            break;
+                        }
+
+                        if (currentCard.getNumber() == 8 || currentCard.getNumber() == 10 && specialSequence == 1){
+                            selectionX = pawn.getX() + 15;
+                            selectionY = pawn.getY() + 10;
+                            specialSequence++;
+                            pawnTwo = pawns.get(count);
+                            indexTwo = count;
+
+                            // swap pawns logic
+                            pawns.get(indexOne).moveTo(10);
+                            repaint();
                         }
 
                         // Move Pawn
@@ -188,9 +211,10 @@ public class Board extends JPanel implements MouseListener {
                         players.remove(first);
                         players.add(first);
 
-                        //reset the clickable flag for deck and pawn
+                        //reset the clickable flag for deck and pawn and sequence
                         isDeckClickable = true;
                         isPawnMovable = false;
+                        specialSequence = 0;
                         repaint();
                 }
             }
