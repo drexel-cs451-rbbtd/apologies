@@ -18,7 +18,8 @@ public class Board extends JPanel implements MouseListener {
     private Deck deck;
     private Card currentCard;
     private JPanel[] Panels;
-    private int selection;
+    private int selectionX = 0;
+    private int selectionY = 0;
     private Positions positions = new Positions();
     private JRadioButton TWO_A;
     private JRadioButton TWO_B;
@@ -132,7 +133,9 @@ public class Board extends JPanel implements MouseListener {
         }
 
         // paint selected region
-        g2d.drawImage(selectionBoxImage, currentCard.getX(), currentCard.getY(), this);
+        if (selectionX != 0 && selectionY != 0){
+            g2d.drawImage(selectionBoxImage, selectionX, selectionY, this);
+        }
 
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
@@ -155,9 +158,11 @@ public class Board extends JPanel implements MouseListener {
                    && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable && (pawn.getColor() == players.get(0))){
 
                         // If card is an eleven or sorry then just select the pawn
-                        if (currentCard.getNumber() == 8 || currentCard.getNumber() == 10){
-                            JOptionPane.showMessageDialog(this, "SPECIAL CARD", "Error", JOptionPane.ERROR_MESSAGE);
-                            break;
+                        if (currentCard.getNumber() > 0){
+                                selectionX = pawn.getX() + 15;
+                                selectionY = pawn.getY() + 10;
+                                repaint();
+                                break;
                         }
 
                         // Move Pawn
@@ -208,7 +213,7 @@ public class Board extends JPanel implements MouseListener {
                         && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight){
 
                     // Move pawn back a space
-                    pawn.moveBack(1);
+                    pawn.moveForward(1);
                     repaint();
                 }
             }
