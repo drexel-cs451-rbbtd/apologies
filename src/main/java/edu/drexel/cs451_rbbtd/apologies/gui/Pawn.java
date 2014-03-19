@@ -12,7 +12,7 @@ public class Pawn {
     private int positions[][];
     private PlayerColor color;
     private String errorMessage;
-    private int specialsequence;
+    private int isSelected;
 
 
     public Pawn(int x, int y, int[][] positions, String path, PlayerColor color) {
@@ -55,6 +55,10 @@ public class Pawn {
         return y;
     }
 
+    public int getSpace(){
+        return space;
+    }
+
     public Image getImage() {
         return image;
     }
@@ -69,7 +73,12 @@ public class Pawn {
 
     //////////////////////////////////// CARD FUNCTIONS//////////////////////////////////////
 
-    // All card functions only one function for now
+    // Move to space function for card swapping
+    public void moveTo(int space){
+        this.space = space;
+    }
+
+    // Specific card functions
     public void One(){
         int choice = 2;
 
@@ -145,7 +154,7 @@ public class Pawn {
         }
         // choice 2
         if (choice == 2);
-              this.moveForward(1);
+            this.moveTo(30);
     }
 
     public void Twelve(){
@@ -162,13 +171,10 @@ public class Pawn {
     }
 
     public void Apologies(){ // unimplemented for now
-        int choice = 2;
-        if (choice == 1)
-           this.moveForward(1);
-
-        // choice 2
-        if (choice == 2);
-           this.moveForward(1);
+        if (this.isSelected == 0){
+            this.errorMessage = "Select Pawn to swap with";
+            this.isSelected = 1;
+        }
     }
 
     // Calls appropriate card function based on Card Number passed to it
