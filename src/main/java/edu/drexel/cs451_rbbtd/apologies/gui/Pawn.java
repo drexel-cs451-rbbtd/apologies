@@ -55,63 +55,156 @@ public class Pawn {
 
     // All card functions only one function for now
     public void One(){
+        int choice = 2;
+
+        // choice 1
+        if (choice == 1)
+        this.moveForward();
+
+        // choice 2
+        if (choice == 2);
         this.moveForward();
     }
 
     public void Two(){
-        this.moveForward();
+        int choice = 2;
+        // choice 1
+        if (choice == 1){
+            this.moveForward();
+            this.moveForward();
+        }
+
+        // choice 2
+        if (choice == 2);
         this.moveForward();
     }
 
     public void Three(){
-        this.moveForward();
-        this.moveForward();
+        int choice = 2;
+
+        // choice 1
+        if (choice == 1){
+            this.moveForward();
+            this.moveForward();
+            this.moveForward();
+        }
+        // choice 2
+        if (choice == 2);
         this.moveForward();
     }
 
     public void Four(){
-        this.moveBack();
-        this.moveBack();
-        this.moveBack();
-        this.moveBack();
+        int choice = 2;
+
+        // choice 1
+        if (choice == 1){
+            this.moveBack();
+            this.moveBack();
+            this.moveBack();
+            this.moveBack();
+        }
+        // choice 2
+        if (choice == 2);
+        this.moveForward();
     }
 
     public void Five(){
-        for (int i = 0; i < 5; i++) {
-            this.moveForward();
+        int choice = 2;
+
+        // choice 1
+        if (choice == 1){
+            for (int i = 0; i < 5; i++) {
+                this.moveForward();
+            }
         }
+
+        // choice 2
+        if (choice == 2);
+        this.moveForward();
     }
 
     public void Seven(){ // Unimplemented for now
+        int choice = 2;
+
+        // choice 1
+        if (choice == 1){
+            for (int i = 0; i < 7; i++) {
+                this.moveForward();
+            }
+        }
+
+        // choice 2
+        if (choice == 2);
         this.moveForward();
     }
 
     public void Eight(){
-        for (int i = 0; i < 8; i++) {
-            this.moveForward();
+        int choice = 2;
+
+        // choice 1
+        if (choice == 1){
+            for (int i = 0; i < 8; i++) {
+                this.moveForward();
+            }
         }
+
+        // choice 2
+        if (choice == 2);
+        this.moveForward();
     }
 
     public void Ten(){
-        for (int i = 0; i < 10; i++) {
-            this.moveForward();
+        int choice = 2;
+
+        // choice 1
+        if (choice == 1){
+            for (int i = 0; i < 10; i++) {
+                this.moveForward();
+            }
         }
+
+        // choice 2
+        if (choice == 2);
+        this.moveForward();
     }
 
-    public void Eleven(){ // unimplemented second function swap
-        for (int i = 0; i < 11; i++) {
-            this.moveForward();
+    public void Eleven(){
+        int choice = 2;  // unimplemented second function swap
+
+        // choice 1
+        if (choice == 1){
+            for (int i = 0; i < 11; i++) {
+              this.moveForward();
+            }
         }
+        // choice 2
+        if (choice == 2);
+        this.moveForward();
     }
 
     public void Twelve(){
-        for (int i = 0; i < 12; i++) {
-            this.moveForward();
+        int choice = 2;
+
+        // choice 1
+        if (choice == 1){
+            for (int i = 0; i < 12; i++) {
+                this.moveForward();
+            }
         }
+
+        // choice 2
+        if (choice == 2);
+        this.moveForward();
     }
 
     public void Apologies(){ // unimplemented for now
-        this.moveForward();
+        int choice = 2;
+        if (choice == 1)
+           this.moveForward();
+
+        // choice 2
+        if (choice == 2);
+           this.moveForward();
     }
 
     // Calls appropriate card function based on Card Number passed to it
