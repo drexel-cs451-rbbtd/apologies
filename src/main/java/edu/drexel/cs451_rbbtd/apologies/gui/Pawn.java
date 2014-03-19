@@ -11,6 +11,7 @@ public class Pawn {
     private int space = -1; // Records how many spaces forward from start location the pawn has traveled
     private int positions[][];
     private PlayerColor color;
+    private String errorMessage;
 
 
     public Pawn(int x, int y, int[][] positions, String path, PlayerColor color) {
@@ -50,6 +51,10 @@ public class Pawn {
         return image;
     }
 
+    public String getErrorMessage() {
+        return errorMessage;
+    }
+
 
     //////////////////////////////////// CARD FUNCTIONS//////////////////////////////////////
 
@@ -61,9 +66,12 @@ public class Pawn {
         if (choice == 1)
         this.moveForward();
 
-        // choice 2
-        if (choice == 2);
-        this.moveForward();
+        // choice 2 start a pawn
+        if (choice == 2)
+            if (this.space == -1) // if pawn is in home
+                this.moveForward();
+            else
+                this.errorMessage = "Must select a pawn in base";
     }
 
     public void Two(){
@@ -74,9 +82,14 @@ public class Pawn {
             this.moveForward();
         }
 
-        // choice 2
-        if (choice == 2);
-        this.moveForward();
+        // choice 2 start a pawn
+        if (choice == 2){
+            if (this.space == -1) // if pawn is in home
+                this.moveForward();
+            else
+                this.errorMessage = "Must select a pawn in base";
+
+        }
     }
 
     public void Three(){

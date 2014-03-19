@@ -145,10 +145,16 @@ public class Board extends JPanel implements MouseListener {
                         // Move Pawn Forward a Space
                         pawn.Move(currentCard.getNumber());
 
+                        // Print error message if applicable
+                        if (pawn.getErrorMessage() != null){
+                            JOptionPane.showMessageDialog(this, pawn.getErrorMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+
                         //rotate the first player to the end of the list
                         PlayerColor first = players.get(0);
                         players.remove(first);
                         players.add(first);
+
                         //reset the clickable flag for deck and pawn
                         isDeckClickable = true;
                         isPawnMovable = false;
