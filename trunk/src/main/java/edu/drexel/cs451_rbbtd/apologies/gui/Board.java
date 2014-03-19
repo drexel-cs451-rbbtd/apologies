@@ -20,7 +20,8 @@ public class Board extends JPanel implements MouseListener {
     private JPanel[] Panels;
     private int selection;
     private Positions positions = new Positions();
-
+    private JRadioButton TWO_A;
+    private JRadioButton TWO_B;
     private Boolean isDeckClickable = true;
     private Boolean isPawnMovable = false;
     private ArrayList<PlayerColor> players = new ArrayList<PlayerColor>();
@@ -52,8 +53,8 @@ public class Board extends JPanel implements MouseListener {
 
         // Create panels
         JPanel TWO_PANEL = new JPanel();
-        JRadioButton TWO_A = new JRadioButton("Start a Pawn");
-        JRadioButton TWO_B = new JRadioButton("Move a pawn forward 2 spaces");
+        TWO_A = new JRadioButton("Start a Pawn");
+        TWO_B = new JRadioButton("Move a pawn forward 2 spaces");
         ButtonGroup TWO_OPTIONS = new ButtonGroup();
         TWO_OPTIONS.add(TWO_A);
         TWO_OPTIONS.add(TWO_B);
@@ -173,6 +174,8 @@ public class Board extends JPanel implements MouseListener {
                     //make deck unclickable and make pawns clickable
                     isDeckClickable = false;
                     isPawnMovable = true;
+                System.out.println(currentCard.getNumber() - 1);
+                    updateMoveOptions(currentCard.getNumber() + 1);
                     repaint();
             }
 
@@ -223,7 +226,7 @@ public class Board extends JPanel implements MouseListener {
 
     }
 
-    public void updateMoveOptions(JRadioButton TWO_A, JRadioButton TWO_B, int cardNo)
+    public void updateMoveOptions(int cardNo)
     {
         String text1 = "";
         String text2 = "";
