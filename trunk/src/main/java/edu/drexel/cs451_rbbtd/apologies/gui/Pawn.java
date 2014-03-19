@@ -11,8 +11,7 @@ public class Pawn {
     private int space = -1; // Records how many spaces forward from start location the pawn has traveled
     private int positions[][];
     private PlayerColor color;
-    private String errorMessage;
-    private int isSelected;
+    public String errorMessage;
 
 
     public Pawn(int x, int y, int[][] positions, String path, PlayerColor color) {
@@ -57,6 +56,10 @@ public class Pawn {
 
     public int getSpace(){
         return space;
+    }
+
+    public void setSpace(int number){
+        this.space = number;
     }
 
     public Image getImage() {
@@ -154,14 +157,6 @@ public class Pawn {
         }
         // choice 2
         if (choice == 2){
-            if (this.isSelected == 0){
-                 this.errorMessage = "Select Pawn to swap with";
-                 this.isSelected = 1;
-            }
-
-            if (this.isSelected == 1){
-                 this.moveTo(10);
-            }
         }
     }
 
@@ -179,14 +174,6 @@ public class Pawn {
     }
 
     public void Apologies(){ // unimplemented for now
-        if (this.isSelected == 0){
-            this.errorMessage = "Select Pawn to swap with";
-            this.isSelected = 1;
-        }
-
-        if (this.isSelected == 1){
-            this.moveTo(10);
-        }
     }
 
     // Calls appropriate card function based on Card Number passed to it

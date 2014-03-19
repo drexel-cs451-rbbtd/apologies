@@ -171,16 +171,7 @@ public class Board extends JPanel implements MouseListener {
                 if (e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
                    && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable && (pawn.getColor() == players.get(0))){
 
-                        // If card is an eleven or sorry then just select the pawn
-                        if (currentCard.getNumber() == 8 || currentCard.getNumber() == 10 && specialSequence == 0){
-                            selectionX = pawn.getX() + 15;
-                            selectionY = pawn.getY() + 10;
-                            specialSequence++;
-                            pawnOne = pawns.get(count);
-                            indexOne = count;
-                            repaint();
-                            break;
-                        }
+                        // If card is an eleven or sorry then swap pawns process
 
                         if (currentCard.getNumber() == 8 || currentCard.getNumber() == 10 && specialSequence == 1){
                             selectionX = pawn.getX() + 15;
@@ -190,8 +181,19 @@ public class Board extends JPanel implements MouseListener {
                             indexTwo = count;
 
                             // swap pawns logic
-                            pawns.get(indexOne).moveTo(10);
+                            int temp = pawns.get(indexOne).getSpace();
+                            pawns.get(indexOne).setSpace(pawns.get(indexTwo).getSpace());
+                            pawns.get(indexTwo).setSpace(temp);
+                        }
+
+                        if (currentCard.getNumber() == 8 || currentCard.getNumber() == 10 && specialSequence == 0){
+                            selectionX = pawn.getX() + 15;
+                            selectionY = pawn.getY() + 10;
+                            specialSequence++;
+                            pawnOne = pawns.get(count);
+                            indexOne = count;
                             repaint();
+                            pawn.errorMessage = "Select a Pawn to swap with.";
                         }
 
                         // Move Pawn
