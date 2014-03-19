@@ -27,16 +27,23 @@ public class Pawn {
         return this.color;
     }
 
-    public void moveForward() {
-        space +=1;
+    public void moveForward(int number) {
+        space +=number;
         x = positions[space][0];
         y = positions[space][1];
     }
 
-    public void moveBack() {
-        space -=1;
-        x = positions[space][0];
-        y = positions[space][1];
+    public void moveBack(int number) {
+        int temp = space; // save initial value in case cannot move back farther
+        space -=number;
+        try{
+            x = positions[space][0];
+            y = positions[space][1];
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            this.errorMessage = "Cannot move back any further.";
+            space = temp;
+        }
     }
 
     public int getX() {
@@ -55,6 +62,9 @@ public class Pawn {
         return errorMessage;
     }
 
+    public void resetErrorMessage() {
+         this.errorMessage = null;
+    }
 
     //////////////////////////////////// CARD FUNCTIONS//////////////////////////////////////
 
@@ -64,12 +74,13 @@ public class Pawn {
 
         // choice 1
         if (choice == 1)
-        this.moveForward();
+        this.moveForward(1);
+        this.errorMessage = null;
 
         // choice 2 start a pawn
         if (choice == 2)
             if (this.space == -1) // if pawn is in home
-                this.moveForward();
+                this.moveForward(1);
             else
                 this.errorMessage = "Must select a pawn in base";
     }
@@ -78,14 +89,14 @@ public class Pawn {
         int choice = 2;
         // choice 1
         if (choice == 1){
-            this.moveForward();
-            this.moveForward();
+            this.moveForward(2);
+            this.errorMessage = null;
         }
 
         // choice 2 start a pawn
         if (choice == 2){
             if (this.space == -1) // if pawn is in home
-                this.moveForward();
+                this.moveForward(1);
             else
                 this.errorMessage = "Must select a pawn in base";
 
@@ -93,32 +104,11 @@ public class Pawn {
     }
 
     public void Three(){
-        int choice = 2;
-
-        // choice 1
-        if (choice == 1){
-            this.moveForward();
-            this.moveForward();
-            this.moveForward();
-        }
-        // choice 2
-        if (choice == 2);
-        this.moveForward();
+         this.moveForward(3);
     }
 
     public void Four(){
-        int choice = 2;
-
-        // choice 1
-        if (choice == 1){
-            this.moveBack();
-            this.moveBack();
-            this.moveBack();
-            this.moveBack();
-        }
-        // choice 2
-        if (choice == 2);
-        this.moveForward();
+            this.moveBack(4);
     }
 
     public void Five(){
@@ -126,14 +116,13 @@ public class Pawn {
 
         // choice 1
         if (choice == 1){
-            for (int i = 0; i < 5; i++) {
-                this.moveForward();
-            }
+                this.moveForward(5);
+
         }
 
         // choice 2
         if (choice == 2);
-        this.moveForward();
+        this.moveForward(1);
     }
 
     public void Seven(){ // Unimplemented for now
@@ -141,14 +130,12 @@ public class Pawn {
 
         // choice 1
         if (choice == 1){
-            for (int i = 0; i < 7; i++) {
-                this.moveForward();
-            }
+                this.moveForward(7);
         }
 
         // choice 2
         if (choice == 2);
-        this.moveForward();
+        this.moveForward(1);
     }
 
     public void Eight(){
@@ -156,14 +143,12 @@ public class Pawn {
 
         // choice 1
         if (choice == 1){
-            for (int i = 0; i < 8; i++) {
-                this.moveForward();
-            }
+                this.moveForward(8);
         }
 
         // choice 2
         if (choice == 2);
-        this.moveForward();
+        this.moveForward(1);
     }
 
     public void Ten(){
@@ -171,14 +156,12 @@ public class Pawn {
 
         // choice 1
         if (choice == 1){
-            for (int i = 0; i < 10; i++) {
-                this.moveForward();
-            }
+                this.moveForward(10);
         }
 
         // choice 2
         if (choice == 2);
-        this.moveForward();
+        this.moveForward(1);
     }
 
     public void Eleven(){
@@ -186,13 +169,11 @@ public class Pawn {
 
         // choice 1
         if (choice == 1){
-            for (int i = 0; i < 11; i++) {
-              this.moveForward();
-            }
+              this.moveForward(11);
         }
         // choice 2
         if (choice == 2);
-        this.moveForward();
+        this.moveForward(1);
     }
 
     public void Twelve(){
@@ -200,24 +181,22 @@ public class Pawn {
 
         // choice 1
         if (choice == 1){
-            for (int i = 0; i < 12; i++) {
-                this.moveForward();
-            }
+                this.moveForward(12);
         }
 
         // choice 2
         if (choice == 2);
-        this.moveForward();
+        this.moveForward(1);
     }
 
     public void Apologies(){ // unimplemented for now
         int choice = 2;
         if (choice == 1)
-           this.moveForward();
+           this.moveForward(1);
 
         // choice 2
         if (choice == 2);
-           this.moveForward();
+           this.moveForward(1);
     }
 
     // Calls appropriate card function based on Card Number passed to it
