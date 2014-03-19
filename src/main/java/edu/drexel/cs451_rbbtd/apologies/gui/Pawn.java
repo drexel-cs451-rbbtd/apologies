@@ -12,6 +12,7 @@ public class Pawn {
     private int positions[][];
     private PlayerColor color;
     private String errorMessage;
+    private int specialsequence;
 
 
     public Pawn(int x, int y, int[][] positions, String path, PlayerColor color) {
@@ -144,7 +145,7 @@ public class Pawn {
         }
         // choice 2
         if (choice == 2);
-        this.moveForward(1);
+              this.moveForward(1);
     }
 
     public void Twelve(){
@@ -152,7 +153,7 @@ public class Pawn {
 
         // choice 1
         if (choice == 1){
-                this.moveForward(12);
+              this.moveForward(12);
         }
 
         // choice 2

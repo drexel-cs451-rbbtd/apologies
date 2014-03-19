@@ -26,11 +26,13 @@ public class Board extends JPanel implements MouseListener {
     private Boolean isDeckClickable = true;
     private Boolean isPawnMovable = false;
     private ArrayList<PlayerColor> players = new ArrayList<PlayerColor>();
+    private int specialSequence = 0;
 
     String yellowPawn = Apologies.getResourcePath("YellowPawn.png");
     String greenPawn = Apologies.getResourcePath("GreenPawn.png");
     String redPawn = Apologies.getResourcePath("RedPawn.png");
     String bluePawn = Apologies.getResourcePath("BluePawn.png");
+    Image selectionBoxImage;
 
 //    String yellowPawn = "resources/YellowPawn.png";
 //    String greenPawn = "resources/GreenPawn.png";
@@ -44,6 +46,11 @@ public class Board extends JPanel implements MouseListener {
         int greenPositions[][] = positions.greenPositions;
         int redPositions[][] = positions.redPositions;
         int bluePositions[][] = positions.bluePositions;
+
+        // init selectionBox image
+        String selectionBox = Apologies.getResourcePath("selectionBox.png");
+        ImageIcon ii = new ImageIcon(selectionBox);
+        selectionBoxImage = ii.getImage();
 
         // Add Board base components
         this.img = img;
@@ -124,6 +131,9 @@ public class Board extends JPanel implements MouseListener {
             g2d.drawImage(currentCard.getImage(), currentCard.getX(), currentCard.getY(), this);
         }
 
+        // paint selected region
+        g2d.drawImage(selectionBoxImage, currentCard.getX(), currentCard.getY(), this);
+
         Toolkit.getDefaultToolkit().sync();
         g.dispose();
     }
@@ -144,7 +154,13 @@ public class Board extends JPanel implements MouseListener {
                 if (e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
                    && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable && (pawn.getColor() == players.get(0))){
 
-                        // Move Pawn Forward a Space
+                        // If card is an eleven or sorry then just select the pawn
+                        if (currentCard.getNumber() == 8 || currentCard.getNumber() == 10){
+                            JOptionPane.showMessageDialog(this, "SPECIAL CARD", "Error", JOptionPane.ERROR_MESSAGE);
+                            break;
+                        }
+
+                        // Move Pawn
                         if (isPawnMovable == true){
                             pawn.Move(currentCard.getNumber());
                         }
