@@ -153,8 +153,16 @@ public class Pawn {
               this.moveForward(11);
         }
         // choice 2
-        if (choice == 2);
-            this.moveTo(30);
+        if (choice == 2){
+            if (this.isSelected == 0){
+                 this.errorMessage = "Select Pawn to swap with";
+                 this.isSelected = 1;
+            }
+
+            if (this.isSelected == 1){
+                 this.moveTo(10);
+            }
+        }
     }
 
     public void Twelve(){
@@ -175,10 +183,15 @@ public class Pawn {
             this.errorMessage = "Select Pawn to swap with";
             this.isSelected = 1;
         }
+
+        if (this.isSelected == 1){
+            this.moveTo(10);
+        }
     }
 
     // Calls appropriate card function based on Card Number passed to it
     public void Move(int cardNum){
+        cardNum = 8; // change this back
         switch (cardNum){
             case 0:
                 this.One();
