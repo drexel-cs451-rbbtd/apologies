@@ -149,9 +149,9 @@ public class Board extends JPanel implements MouseListener {
                         // Print error message if applicable
                         if (pawn.getErrorMessage() != null){
                             JOptionPane.showMessageDialog(this, pawn.getErrorMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                            pawn.resetErrorMessage(); // remove error message so it won't carry over to to next card
+                            break;
                         }
-
-                        pawn.resetErrorMessage(); // remove error message so it won't carry over to to next card
 
                         //rotate the first player to the end of the list
                         PlayerColor first = players.get(0);

@@ -112,56 +112,27 @@ public class Pawn {
     }
 
     public void Five(){
-        int choice = 2;
-
-        // choice 1
-        if (choice == 1){
-                this.moveForward(5);
-
-        }
-
-        // choice 2
-        if (choice == 2);
-        this.moveForward(1);
+            this.moveForward(5);
     }
 
     public void Seven(){ // Unimplemented for now
-        int choice = 2;
-
-        // choice 1
-        if (choice == 1){
-                this.moveForward(7);
-        }
-
-        // choice 2
-        if (choice == 2);
-        this.moveForward(1);
+            this.moveForward(7);
     }
 
     public void Eight(){
-        int choice = 2;
-
-        // choice 1
-        if (choice == 1){
-                this.moveForward(8);
-        }
-
-        // choice 2
-        if (choice == 2);
-        this.moveForward(1);
+            this.moveForward(8);
     }
 
     public void Ten(){
         int choice = 2;
 
         // choice 1
-        if (choice == 1){
-                this.moveForward(10);
-        }
+        if (choice == 1)
+            this.moveForward(10);
 
         // choice 2
         if (choice == 2);
-        this.moveForward(1);
+            this.moveBack(1);
     }
 
     public void Eleven(){
