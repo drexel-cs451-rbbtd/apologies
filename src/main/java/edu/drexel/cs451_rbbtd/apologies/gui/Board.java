@@ -221,5 +221,5 @@ public class Board extends JPanel implements MouseListener {
     public void mouseEntered(MouseEvent e) {}
     public void mouseExited(MouseEvent e) {}
 
-
-} // end class
+}
+// end class
