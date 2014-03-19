@@ -59,7 +59,6 @@ public class Board extends JPanel implements MouseListener {
         TWO_OPTIONS.add(TWO_B);
         TWO_PANEL.add(TWO_A);
         TWO_PANEL.add(TWO_B);
-
         // Set current panel
         this.setLayout(new BorderLayout());
         this.add(TWO_PANEL, BorderLayout.SOUTH);
@@ -128,7 +127,6 @@ public class Board extends JPanel implements MouseListener {
 
     // Handle mouse clicks
     public void mouseClicked(MouseEvent e) {
-
         final int pawnClickAreaWidth = 50;
         final int pawnClickAreaHeight = 50;
         final int cardClickAreaWidth = 120;
@@ -219,6 +217,36 @@ public class Board extends JPanel implements MouseListener {
             }
         }
 
+    }
+
+    public void updateMoveOptions(JRadioButton TWO_A, JRadioButton TWO_B, int cardNo)
+    {
+        String text1 = "";
+        String text2 = "";
+        String buttonText1 = "";
+        String buttonText2 = "";
+        String blank = "";
+        String baseStr = "Move a pawn @";
+        switch (cardNo) {
+            case 1: text1 = "from start"; text2 = "forward 1 space"; break;
+            case 2: text1 = "from start"; text2 = "back 2 spaces"; break;
+            case 3: text1 = "forward 3 spaces"; text2 = blank; break;
+            case 4: text1 = "back 4 spaces"; text2 = blank; break;
+            case 5: text1 = "forward 5 spaces"; text2 = blank; break;
+            case 6: text1 = "forward 7 spaces"; text2 = "Split between 2 pawns"; break;
+            case 7: text1 = "forward 8 spaces"; text2 = blank; break;
+            case 8: text1 = "forward 10 spaces"; text2 = "back 1 space"; break;
+            case 9: text1 = "forward 11 spaces"; text2 = "Switch places with opposing pawn"; break;
+            case 10: text1 = "forward 12 spaces"; text2 = blank; break;
+            case 11: text1 = "Move pawn from start to an opponent's square"; text2 = blank; break;
+        }
+
+        if (text1.startsWith("forward") || text1.startsWith("back")) buttonText1 = baseStr.replace("@", text1);
+        else buttonText1 = text1;
+        if (text2.startsWith("forward") || text2.startsWith("back")) buttonText2 = baseStr.replace("@", text2);
+        else buttonText2 = text2;
+        TWO_A.setText(buttonText1);
+        TWO_B.setText(buttonText2);
     }
 
     // Unused MouseListener functions
