@@ -141,12 +141,16 @@ public class Board extends JPanel implements MouseListener {
                    && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable && (pawn.getColor() == players.get(0))){
 
                         // Move Pawn Forward a Space
-                        pawn.Move(currentCard.getNumber());
+                        if (isPawnMovable == true){
+                            pawn.Move(currentCard.getNumber());
+                        }
 
                         // Print error message if applicable
                         if (pawn.getErrorMessage() != null){
                             JOptionPane.showMessageDialog(this, pawn.getErrorMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                         }
+
+                        pawn.resetErrorMessage(); // remove error message so it won't carry over to to next card
 
                         //rotate the first player to the end of the list
                         PlayerColor first = players.get(0);
@@ -183,7 +187,7 @@ public class Board extends JPanel implements MouseListener {
                         && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight){
 
                     // Move pawn back a space
-                    pawn.moveBack();
+                    pawn.moveBack(1);
                     repaint();
                 }
             }
