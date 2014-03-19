@@ -23,7 +23,8 @@ public class Board extends JPanel implements MouseListener {
     private Positions positions = new Positions();
     private JRadioButton TWO_A;
     private JRadioButton TWO_B;
-    private int optSelected;
+    private JRadioButton SKIP;
+    private int optSelected = 1;
     private Boolean isDeckClickable = true;
     private Boolean isPawnMovable = false;
     private ArrayList<PlayerColor> players = new ArrayList<PlayerColor>();
@@ -64,13 +65,17 @@ public class Board extends JPanel implements MouseListener {
         JPanel TWO_PANEL = new JPanel();
         TWO_A = new JRadioButton("Start a Pawn");
         TWO_B = new JRadioButton("Move a pawn forward 2 spaces");
+        SKIP = new JRadioButton("Skip Turn");
         TWO_A.addActionListener(new buttonOneClicked());
         TWO_B.addActionListener(new buttonTwoClicked());
+        SKIP.addActionListener(new skipButtonClicked());
         ButtonGroup TWO_OPTIONS = new ButtonGroup();
         TWO_OPTIONS.add(TWO_A);
         TWO_OPTIONS.add(TWO_B);
+        TWO_OPTIONS.add(SKIP);
         TWO_PANEL.add(TWO_A);
         TWO_PANEL.add(TWO_B);
+        TWO_PANEL.add(SKIP);
         // Set current panel
         this.setLayout(new BorderLayout());
         this.add(TWO_PANEL, BorderLayout.SOUTH);
@@ -149,6 +154,7 @@ public class Board extends JPanel implements MouseListener {
         final int cardClickAreaWidth = 120;
         final int cardClickAreaHeight = 160;
         System.out.println(optSelected);
+
         // Left Click
         if ((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK){
 
@@ -281,6 +287,7 @@ public class Board extends JPanel implements MouseListener {
 
     public class buttonOneClicked implements ActionListener{ public void actionPerformed(ActionEvent e){ optSelected = 1; } }
     public class buttonTwoClicked implements ActionListener{ public void actionPerformed(ActionEvent e){ optSelected = 2; } }
+    public class skipButtonClicked implements ActionListener{ public void actionPerformed(ActionEvent e){ optSelected = 3; } }
 
     // Unused MouseListener functions
     public void mousePressed(MouseEvent e) {}
