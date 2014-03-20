@@ -186,7 +186,8 @@ public class Board extends JPanel implements MouseListener {
                    && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable){
 
                         // If card is an eleven or sorry then special sequence
-                        if (currentCard.getNumber() == 8 && optSelected == 2 || currentCard.getNumber() == 10){
+                        if ((currentCard.getNumber() == 8 && optSelected == 2) ||
+                            (currentCard.getNumber() == 10 && optSelected != 3)){
                             if (specialSequence == 0){
                                 selectionX = pawn.getX() + 15;
                                 selectionY = pawn.getY() + 10;
@@ -218,6 +219,8 @@ public class Board extends JPanel implements MouseListener {
                             }
                             specialSequence++;
                         }
+
+                        if (pawn.getColor() != players.get(0)) return;
 
                         // Move Pawn
                         if (isPawnMovable == true){
@@ -302,6 +305,8 @@ public class Board extends JPanel implements MouseListener {
             players.remove(p);
             players.add(p);
             Apologies.swapFirstLast(); }
+        for (int i = 0; i < Apologies.names.size(); i++)
+            if (Apologies.getNames(i).length() == 0) Apologies.names.remove(i);
         PLAYER.setText(Apologies.getNames(0) + "'s Turn");
     }
 
