@@ -162,8 +162,7 @@ public class Pawn {
             this.moveForward(8);
     }
 
-    public void Ten(){
-        int choice = 2;
+    public void Ten(int choice){
 
         // choice 1
         if (choice == 1)
@@ -218,7 +217,7 @@ public class Pawn {
                 this.Eight();
                 break;
             case 7:
-                this.Ten();
+                this.Ten(optSelected);
                 break;
             case 8:
                 this.Eleven(optSelected);

@@ -175,8 +175,8 @@ public class Board extends JPanel implements MouseListener {
                 if (e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
                    && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable){
 
-                        // If card is an eleven or sorry then swap pawns process
-                        if (currentCard.getNumber() == 8 || currentCard.getNumber() == 10){
+                        // If card is an eleven or sorry then special sequence
+                        if (currentCard.getNumber() == 8 && optSelected == 2 || currentCard.getNumber() == 10){
                             if (specialSequence == 0){
                                 selectionX = pawn.getX() + 15;
                                 selectionY = pawn.getY() + 10;
