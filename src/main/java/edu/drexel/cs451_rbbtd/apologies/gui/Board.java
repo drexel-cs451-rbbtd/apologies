@@ -195,9 +195,7 @@ public class Board extends JPanel implements MouseListener {
                                 indexOne = pawnIndexPlus1-1;
                                 pawn.errorMessage = "Select a Pawn to swap with.";
                                 repaint();
-                            }
-
-                            if (specialSequence == 1) {
+                            } else if (specialSequence == 1) {
                                 selectionX = pawn.getX() + 15;
                                 selectionY = pawn.getY() + 10;
                                 pawnTwo = pawns.get(pawnIndexPlus1-1);
@@ -275,7 +273,6 @@ public class Board extends JPanel implements MouseListener {
                 }
             }
         }
-
     }
 
     private void handleDeckClick() {
