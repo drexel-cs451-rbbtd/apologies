@@ -5,6 +5,8 @@ import java.awt.*;
 
 public class Pawn {
 
+    private int baseX;
+    private int baseY;
     private int x;
     private int y;
     private Image image;
@@ -18,7 +20,9 @@ public class Pawn {
         ImageIcon ii = new ImageIcon(path);
         image = ii.getImage();
         this.x = x;
+        this.baseX = x;
         this.y = y;
+        this.baseY = y;
         this.positions = positions;
         this.color = color;
     }
@@ -28,9 +32,17 @@ public class Pawn {
     }
 
     public void moveForward(int number) {
+        int temp = space; // save initial value in case cannot move back farther
         space +=number;
-        x = positions[space][0];
-        y = positions[space][1];
+        try{
+            x = positions[space][0];
+            y = positions[space][1];
+        }
+        catch (ArrayIndexOutOfBoundsException e){
+            this.x = baseX;
+            this.y = baseY;
+            space = temp;
+        }
     }
 
     public void moveBack(int number) {
@@ -41,7 +53,8 @@ public class Pawn {
             y = positions[space][1];
         }
         catch (ArrayIndexOutOfBoundsException e){
-            this.errorMessage = "Cannot move back any further.";
+            this.x = baseX;
+            this.y = baseY;
             space = temp;
         }
     }
@@ -62,6 +75,19 @@ public class Pawn {
         this.space = number;
     }
 
+    public int getIndex(int x, int y){ // gets the index of an x and y pair
+        int index = 0;
+        for (int i = 0; i < positions.length; i++){
+            if (positions[i][0] == x && positions[i][1] == y)
+            {
+                index = i;
+            }
+
+        }
+
+        return index;
+    }
+
     public Image getImage() {
         return image;
     }
@@ -79,6 +105,8 @@ public class Pawn {
     // Move to space function for card swapping
     public void moveTo(int space){
         this.space = space;
+        x = positions[space][0];
+        y = positions[space][1];
     }
 
     // Specific card functions

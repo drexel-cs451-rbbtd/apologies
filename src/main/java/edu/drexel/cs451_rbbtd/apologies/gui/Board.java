@@ -173,30 +173,39 @@ public class Board extends JPanel implements MouseListener {
             for (Pawn pawn: pawns) {
                 count++;
                 if (e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
-                        && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable && (pawn.getColor() == players.get(0))){
+                   && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable){
+                        // for debugging, make current card a swap card
+                        currentCard.setNumber(8);
+
                         // If card is an eleven or sorry then swap pawns process
+                        if (currentCard.getNumber() == 8 || currentCard.getNumber() == 10){
+                            if (specialSequence == 0){
+                                selectionX = pawn.getX() + 15;
+                                selectionY = pawn.getY() + 10;
+                                pawnOne = pawns.get(count-1);
+                                indexOne = count-1;
+                                pawn.errorMessage = "Select a Pawn to swap with.";
+                                repaint();
+                            }
 
-                        if (currentCard.getNumber() == 8 || currentCard.getNumber() == 10 && specialSequence == 1){
-                            selectionX = pawn.getX() + 15;
-                            selectionY = pawn.getY() + 10;
+                            if (specialSequence == 1){
+                                selectionX = pawn.getX() + 15;
+                                selectionY = pawn.getY() + 10;
+                                pawnTwo = pawns.get(count-1);
+                                indexTwo = count-1;
+
+                                // swap pawns logic
+                                int space1 = pawns.get(indexOne).getSpace(); // the space of your pawn
+                                int space2 = pawns.get(indexTwo).getSpace(); // the space of opponents paws
+
+                                int temp = pawns.get(indexOne).getIndex(pawns.get(indexTwo).getX(), pawns.get(indexTwo).getY());
+                                int temp2 = pawns.get(indexTwo).getIndex(pawns.get(indexOne).getX(), pawns.get(indexOne).getY());
+
+                                pawns.get(indexOne).moveTo(temp);
+                                pawns.get(indexTwo).moveTo(temp2);
+                                repaint();
+                            }
                             specialSequence++;
-                            pawnTwo = pawns.get(count);
-                            indexTwo = count;
-
-                            // swap pawns logic
-                            int temp = pawns.get(indexOne).getSpace();
-                            pawns.get(indexOne).setSpace(pawns.get(indexTwo).getSpace());
-                            pawns.get(indexTwo).setSpace(temp);
-                        }
-
-                        if (currentCard.getNumber() == 8 || currentCard.getNumber() == 10 && specialSequence == 0){
-                            selectionX = pawn.getX() + 15;
-                            selectionY = pawn.getY() + 10;
-                            specialSequence++;
-                            pawnOne = pawns.get(count);
-                            indexOne = count;
-                            repaint();
-                            pawn.errorMessage = "Select a Pawn to swap with.";
                         }
 
                         // Move Pawn
