@@ -33,6 +33,8 @@ public class Board extends JPanel implements MouseListener {
     private Image drawImg = new ImageIcon(Apologies.getResourcePath("draw.png")).getImage();
 
     // For pawn swapping logic
+    private Pawn pawnOne;
+    private Pawn pawnTwo;
     private int indexOne;
     private int indexTwo;
 
@@ -189,8 +191,8 @@ public class Board extends JPanel implements MouseListener {
                             if (specialSequence == 0) {
                                 selectionX = pawn.getX() + 15;
                                 selectionY = pawn.getY() + 10;
+                                pawnOne = pawns.get(pawnIndexPlus1-1);
                                 indexOne = pawnIndexPlus1-1;
-                                Pawn pawnOne = pawns.get(pawnIndexPlus1-1);
                                 pawn.errorMessage = "Select a Pawn to swap with.";
                                 repaint();
                             }
@@ -198,7 +200,7 @@ public class Board extends JPanel implements MouseListener {
                             if (specialSequence == 1) {
                                 selectionX = pawn.getX() + 15;
                                 selectionY = pawn.getY() + 10;
-                                Pawn pawnTwo = pawns.get(pawnIndexPlus1-1);
+                                pawnTwo = pawns.get(pawnIndexPlus1-1);
                                 indexTwo = pawnIndexPlus1-1;
 
                                 // swap pawns logic
