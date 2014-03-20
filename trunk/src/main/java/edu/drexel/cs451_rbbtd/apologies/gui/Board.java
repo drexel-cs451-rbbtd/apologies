@@ -80,6 +80,9 @@ public class Board extends JPanel implements MouseListener {
         PLAYER.setForeground(Color.white);
         TWO_A.addActionListener(new buttonOneClicked());
         TWO_B.addActionListener(new buttonTwoClicked());
+        TWO_A.setVisible(false);
+        TWO_B.setVisible(false);
+        SKIP.setVisible(false);
         SKIP.addActionListener(new skipButtonClicked());
         ButtonGroup TWO_OPTIONS = new ButtonGroup();
         TWO_OPTIONS.add(TWO_A);
@@ -218,20 +221,25 @@ public class Board extends JPanel implements MouseListener {
                             pawn.Move(currentCard.getNumber(), optSelected);
                         }
 
+                        // Turn is over, do not show move options.
+                        TWO_A.setVisible(false);
+                        TWO_B.setVisible(false);
+                        SKIP.setVisible(false);
+
                         // Print error message if applicable
                         if (pawn.getErrorMessage() != null){
                             JOptionPane.showMessageDialog(this, pawn.getErrorMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                             pawn.resetErrorMessage(); // remove error message so it won't carry over to to next card
                             break;
                         }
-//System.out.println("NEXT TURN");
+
                         //rotate the first player to the end of the list
                         PlayerColor first = players.get(0);
                         players.remove(first);
                         players.add(first);
                         Apologies.swapFirstLast();
                         PLAYER.setText(Apologies.getNames(0) + "'s Turn");
-                        updateTurnLabel(first);
+                        updateTurnLabel(players.get(0));
                         //reset the clickable flag for deck and pawn and sequence
                         isDeckClickable = true;
                         isPawnMovable = false;
@@ -277,37 +285,28 @@ public class Board extends JPanel implements MouseListener {
          * in the appropriate order (play must proceed clockwise from first player)
          ***************************************************************************/
 
+        // Get the correct player order and set BG color
+        for (PlayerColor p : playerColors) players.add(p);
 
-        players.add(first);
-        int index = players.indexOf(first);
-        //if the the first color was selected just add list in order
-        if (index == 0) {
-        playerColors.remove(first);
-            for (PlayerColor p : playerColors) players.add(p);
-            // Get the correct player order and set BG color
-            int swaps;
-            if (first == PlayerColor.RED) swaps = 0;
-            else if (first == PlayerColor.BLUE) swaps = 1;
-            else if (first == PlayerColor.YELLOW) swaps = 2;
-            else swaps = 3;
-            updateTurnLabel(first);
-            for (int i = swaps; i > 0; i--) { Apologies.swapFirstLast(); }
-        }
-        else {
-            //if first color was not selected, add colors after it, then the
-            //ones before it to get the correct order
-            for (int i = index + 1; i < playerColors.size(); i++) {
-                players.add(playerColors.get(i));
-            }
-            for (int i = 0; i < index; i++) {
-                players.add(playerColors.get(i));
-            }
-        }
+        int swaps;
+        if (first == PlayerColor.RED) swaps = 0;
+        else if (first == PlayerColor.BLUE) swaps = 1;
+        else if (first == PlayerColor.YELLOW) swaps = 2;
+        else swaps = 3;
+        updateTurnLabel(first);
+        for (int i = swaps; i > 0; i--) {
+            PlayerColor p = players.get(0);
+            players.remove(p);
+            players.add(p);
+            Apologies.swapFirstLast(); }
         PLAYER.setText(Apologies.getNames(0) + "'s Turn");
     }
 
     public void updateMoveOptions(int cardNo)
     {
+        TWO_A.setVisible(true);
+        TWO_B.setVisible(true);
+        SKIP.setVisible(true);
         String text1 = "";
         String text2 = "";
         String buttonText1 = "";
