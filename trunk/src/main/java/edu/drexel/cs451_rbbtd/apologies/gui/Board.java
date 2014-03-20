@@ -30,6 +30,7 @@ public class Board extends JPanel implements MouseListener {
     private Boolean isPawnMovable = false;
     private ArrayList<PlayerColor> players = new ArrayList<PlayerColor>();
     private int specialSequence = 0;
+    private Image drawImg = new ImageIcon(Apologies.getResourcePath("draw.png")).getImage();
 
     // For pawn swapping logic
     private Pawn pawnOne;
@@ -76,6 +77,7 @@ public class Board extends JPanel implements MouseListener {
         PLAYER = new JTextArea("");
         PLAYER.setEditable(false);
         PLAYER.setBackground(TWO_PANEL.getBackground());
+        PLAYER.setForeground(Color.white);
         TWO_A.addActionListener(new buttonOneClicked());
         TWO_B.addActionListener(new buttonTwoClicked());
         SKIP.addActionListener(new skipButtonClicked());
@@ -152,6 +154,8 @@ public class Board extends JPanel implements MouseListener {
             g2d.drawImage(currentCard.getImage(), currentCard.getX(), currentCard.getY(), this);
         }
 
+        if (isDeckClickable) g2d.drawImage(drawImg, deck.getX() + 50, deck.getY() + 175, this);
+
         // paint selected region
         if (selectionX != 0 && selectionY != 0){
             g2d.drawImage(selectionBoxImage, selectionX, selectionY, this);
@@ -168,7 +172,6 @@ public class Board extends JPanel implements MouseListener {
         final int pawnClickAreaHeight = 50;
         final int cardClickAreaWidth = 120;
         final int cardClickAreaHeight = 160;
-
         // Left Click
         if ((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK){
 
@@ -221,13 +224,14 @@ public class Board extends JPanel implements MouseListener {
                             pawn.resetErrorMessage(); // remove error message so it won't carry over to to next card
                             break;
                         }
-
+//System.out.println("NEXT TURN");
                         //rotate the first player to the end of the list
                         PlayerColor first = players.get(0);
                         players.remove(first);
                         players.add(first);
-                        PLAYER.setText(Apologies.getNames(0) + "'s Turn");
                         Apologies.swapFirstLast();
+                        PLAYER.setText(Apologies.getNames(0) + "'s Turn");
+                        updateTurnLabel(first);
                         //reset the clickable flag for deck and pawn and sequence
                         isDeckClickable = true;
                         isPawnMovable = false;
@@ -280,11 +284,13 @@ public class Board extends JPanel implements MouseListener {
         if (index == 0) {
         playerColors.remove(first);
             for (PlayerColor p : playerColors) players.add(p);
+            // Get the correct player order and set BG color
             int swaps;
             if (first == PlayerColor.RED) swaps = 0;
             else if (first == PlayerColor.BLUE) swaps = 1;
             else if (first == PlayerColor.YELLOW) swaps = 2;
             else swaps = 3;
+            updateTurnLabel(first);
             for (int i = swaps; i > 0; i--) { Apologies.swapFirstLast(); }
         }
         else {
@@ -328,6 +334,19 @@ public class Board extends JPanel implements MouseListener {
         else buttonText2 = text2;
         TWO_A.setText(buttonText1);
         TWO_B.setText(buttonText2);
+
+        // If there is only option, only show one button
+        if (text2.equals(blank)) TWO_B.setVisible(false);
+        else TWO_B.setVisible(true);
+    }
+
+    public void updateTurnLabel(PlayerColor nextPlayerCol)
+    {
+        PLAYER.setForeground(Color.white);
+        if (nextPlayerCol == PlayerColor.RED) PLAYER.setBackground(Color.RED);
+        else if (nextPlayerCol == PlayerColor.BLUE) PLAYER.setBackground(Color.BLUE);
+        else if (nextPlayerCol == PlayerColor.YELLOW) { PLAYER.setBackground(Color.YELLOW); PLAYER.setForeground(Color.black); }
+        else PLAYER.setBackground(Color.GREEN);
     }
 
     public class buttonOneClicked implements ActionListener{ public void actionPerformed(ActionEvent e){ optSelected = 1; } }
