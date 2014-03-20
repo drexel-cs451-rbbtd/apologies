@@ -211,6 +211,9 @@ public class Board extends JPanel implements MouseListener {
 
                                 pawns.get(indexOne).moveTo(temp);
                                 pawns.get(indexTwo).moveTo(temp2);
+
+                                if (currentCard.getNumber() == 10) // if apologies, back up swapped pawn back into base
+                                    pawns.get(indexTwo).moveBack(1);
                                 repaint();
                             }
                             specialSequence++;
