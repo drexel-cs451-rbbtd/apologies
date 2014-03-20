@@ -24,6 +24,7 @@ public class Board extends JPanel implements MouseListener {
     private JRadioButton TWO_A;
     private JRadioButton TWO_B;
     private JRadioButton SKIP;
+    private JTextArea PLAYER;
     private int optSelected = 1;
     private Boolean isDeckClickable = true;
     private Boolean isPawnMovable = false;
@@ -72,6 +73,9 @@ public class Board extends JPanel implements MouseListener {
         TWO_A = new JRadioButton("Start a Pawn");
         TWO_B = new JRadioButton("Move a pawn forward 2 spaces");
         SKIP = new JRadioButton("Skip Turn");
+        PLAYER = new JTextArea("");
+        PLAYER.setEditable(false);
+        PLAYER.setBackground(TWO_PANEL.getBackground());
         TWO_A.addActionListener(new buttonOneClicked());
         TWO_B.addActionListener(new buttonTwoClicked());
         SKIP.addActionListener(new skipButtonClicked());
@@ -82,6 +86,7 @@ public class Board extends JPanel implements MouseListener {
         TWO_PANEL.add(TWO_A);
         TWO_PANEL.add(TWO_B);
         TWO_PANEL.add(SKIP);
+        TWO_PANEL.add(PLAYER);
         // Set current panel
         this.setLayout(new BorderLayout());
         this.add(TWO_PANEL, BorderLayout.SOUTH);
@@ -159,7 +164,6 @@ public class Board extends JPanel implements MouseListener {
         final int pawnClickAreaHeight = 50;
         final int cardClickAreaWidth = 120;
         final int cardClickAreaHeight = 160;
-        System.out.println(optSelected);
 
         // Left Click
         if ((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK){
@@ -169,8 +173,7 @@ public class Board extends JPanel implements MouseListener {
             for (Pawn pawn: pawns) {
                 count++;
                 if (e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
-                   && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable && (pawn.getColor() == players.get(0))){
-
+                        && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable && (pawn.getColor() == players.get(0))){
                         // If card is an eleven or sorry then swap pawns process
 
                         if (currentCard.getNumber() == 8 || currentCard.getNumber() == 10 && specialSequence == 1){
@@ -212,7 +215,8 @@ public class Board extends JPanel implements MouseListener {
                         PlayerColor first = players.get(0);
                         players.remove(first);
                         players.add(first);
-
+                        PLAYER.setText(Apologies.getNames(0) + "'s Turn");
+                        Apologies.swapFirstLast();
                         //reset the clickable flag for deck and pawn and sequence
                         isDeckClickable = true;
                         isPawnMovable = false;
@@ -224,7 +228,6 @@ public class Board extends JPanel implements MouseListener {
             // Left Click deck – draw card
             if (e.getX() > deck.getX() && e.getX() < deck.getX()+cardClickAreaWidth
                     && e.getY() > deck.getY() && e.getY() < deck.getY()+cardClickAreaHeight && isDeckClickable){
-
                     // Draw a card and paint it on the board
                     currentCard = new Card(deck.drawCard());
                     //make deck unclickable and make pawns clickable
@@ -265,8 +268,13 @@ public class Board extends JPanel implements MouseListener {
         //if the the first color was selected just add list in order
         if (index == 0) {
         playerColors.remove(first);
-            for (PlayerColor p : playerColors)
-                players.add(p);
+            for (PlayerColor p : playerColors) players.add(p);
+            int swaps;
+            if (first == PlayerColor.RED) swaps = 0;
+            else if (first == PlayerColor.BLUE) swaps = 1;
+            else if (first == PlayerColor.YELLOW) swaps = 2;
+            else swaps = 3;
+            for (int i = swaps; i > 0; i--) { Apologies.swapFirstLast(); }
         }
         else {
             //if first color was not selected, add colors after it, then the
@@ -278,7 +286,7 @@ public class Board extends JPanel implements MouseListener {
                 players.add(playerColors.get(i));
             }
         }
-
+        PLAYER.setText(Apologies.getNames(0) + "'s Turn");
     }
 
     public void updateMoveOptions(int cardNo)
@@ -303,9 +311,9 @@ public class Board extends JPanel implements MouseListener {
             case 11: text1 = "Move pawn from start to an opponent's square"; text2 = blank; break;
         }
 
-        if (text1.startsWith("forward") || text1.startsWith("back")) buttonText1 = baseStr.replace("@", text1);
+        if (text1.startsWith("forward") || text1.startsWith("back") || text1.startsWith("from")) buttonText1 = baseStr.replace("@", text1);
         else buttonText1 = text1;
-        if (text2.startsWith("forward") || text2.startsWith("back")) buttonText2 = baseStr.replace("@", text2);
+        if (text2.startsWith("forward") || text2.startsWith("back") || text2.startsWith("from")) buttonText2 = baseStr.replace("@", text2);
         else buttonText2 = text2;
         TWO_A.setText(buttonText1);
         TWO_B.setText(buttonText2);
