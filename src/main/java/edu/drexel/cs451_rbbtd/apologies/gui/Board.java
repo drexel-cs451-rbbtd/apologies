@@ -13,7 +13,7 @@ import java.awt.event.*;
 
 public class Board extends JPanel implements MouseListener {
 
-    private List<Pawn> pawns;
+    private static List<Pawn> pawns;
     private Image img;
     private Deck deck;
     private Card currentCard;
@@ -215,6 +215,7 @@ public class Board extends JPanel implements MouseListener {
 
                                 if (currentCard.getNumber() == 10) // if apologies, back up swapped pawn back into base
                                     pawns.get(indexTwo).moveBack(1);
+                                    pawns.get(indexTwo).space = -1;
                                 repaint();
                             }
                             specialSequence++;
@@ -355,6 +356,8 @@ public class Board extends JPanel implements MouseListener {
         else if (nextPlayerCol == PlayerColor.YELLOW) { PLAYER.setBackground(Color.YELLOW); PLAYER.setForeground(Color.black); }
         else PLAYER.setBackground(Color.GREEN);
     }
+
+    public static List<Pawn> getPawns() { return pawns; }
 
     public class buttonOneClicked implements ActionListener{ public void actionPerformed(ActionEvent e){ optSelected = 1; } }
     public class buttonTwoClicked implements ActionListener{ public void actionPerformed(ActionEvent e){ optSelected = 2; } }
