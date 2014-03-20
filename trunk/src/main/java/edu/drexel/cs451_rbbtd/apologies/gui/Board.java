@@ -310,7 +310,7 @@ public class Board extends JPanel implements MouseListener {
             players.remove(p);
             players.add(p);
             Apologies.swapFirstLast(); }
-        for (int i = 0; i < Apologies.names.size(); i++)
+        for (int i = Apologies.names.size() - 1; i >= 0; i--)
             if (Apologies.getNames(i).length() == 0) Apologies.names.remove(i);
         PLAYER.setText(Apologies.getNames(0) + "'s Turn");
     }
