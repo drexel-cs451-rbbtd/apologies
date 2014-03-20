@@ -33,8 +33,6 @@ public class Board extends JPanel implements MouseListener {
     private Image drawImg = new ImageIcon(Apologies.getResourcePath("draw.png")).getImage();
 
     // For pawn swapping logic
-    private Pawn pawnOne;
-    private Pawn pawnTwo;
     private int indexOne;
     private int indexTwo;
 
@@ -153,14 +151,14 @@ public class Board extends JPanel implements MouseListener {
         g2d.drawImage(deck.getImage(), deck.getX(), deck.getY(), this);
 
         // Paint current card if not null
-        if (currentCard != null){
+        if (currentCard != null) {
             g2d.drawImage(currentCard.getImage(), currentCard.getX(), currentCard.getY(), this);
         }
 
         if (isDeckClickable) g2d.drawImage(drawImg, deck.getX() + 50, deck.getY() + 175, this);
 
         // paint selected region
-        if (selectionX != 0 && selectionY != 0){
+        if (selectionX != 0 && selectionY != 0) {
             g2d.drawImage(selectionBoxImage, selectionX, selectionY, this);
         }
 
@@ -176,32 +174,32 @@ public class Board extends JPanel implements MouseListener {
         final int cardClickAreaWidth = 120;
         final int cardClickAreaHeight = 160;
         // Left Click
-        if ((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK){
+        if ((e.getModifiers() & InputEvent.BUTTON1_MASK) == InputEvent.BUTTON1_MASK) {
 
-            // Left Click pawn - Iterate through pawns
-            int count = 0;
+            // Left Click pawn - check whether each pawn was at the click point
+            int pawnIndexPlus1 = 0;
             for (Pawn pawn: pawns) {
-                count++;
+                pawnIndexPlus1++;
                 if (e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
-                   && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable){
+                   && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable) {
 
                         // If card is an eleven or sorry then special sequence
                         if ((currentCard.getNumber() == 8 && optSelected == 2) ||
-                            (currentCard.getNumber() == 10 && optSelected != 3)){
-                            if (specialSequence == 0){
+                            (currentCard.getNumber() == 10 && optSelected != 3)) {
+                            if (specialSequence == 0) {
                                 selectionX = pawn.getX() + 15;
                                 selectionY = pawn.getY() + 10;
-                                pawnOne = pawns.get(count-1);
-                                indexOne = count-1;
+                                indexOne = pawnIndexPlus1-1;
+                                Pawn pawnOne = pawns.get(pawnIndexPlus1-1);
                                 pawn.errorMessage = "Select a Pawn to swap with.";
                                 repaint();
                             }
 
-                            if (specialSequence == 1){
+                            if (specialSequence == 1) {
                                 selectionX = pawn.getX() + 15;
                                 selectionY = pawn.getY() + 10;
-                                pawnTwo = pawns.get(count-1);
-                                indexTwo = count-1;
+                                Pawn pawnTwo = pawns.get(pawnIndexPlus1-1);
+                                indexTwo = pawnIndexPlus1-1;
 
                                 // swap pawns logic
                                 int space1 = pawns.get(indexOne).getSpace(); // the space of your pawn
@@ -224,7 +222,7 @@ public class Board extends JPanel implements MouseListener {
                         if (pawn.getColor() != players.get(0)) return;
 
                         // Move Pawn
-                        if (isPawnMovable == true){
+                        if (isPawnMovable == true) {
                             pawn.Move(currentCard.getNumber(), optSelected);
                         }
 
@@ -234,7 +232,7 @@ public class Board extends JPanel implements MouseListener {
                         SKIP.setVisible(false);
 
                         // Print error message if applicable
-                        if (pawn.getErrorMessage() != null){
+                        if (pawn.getErrorMessage() != null) {
                             JOptionPane.showMessageDialog(this, pawn.getErrorMessage(), "Error", JOptionPane.ERROR_MESSAGE);
                             pawn.resetErrorMessage(); // remove error message so it won't carry over to to next card
                             break;
@@ -257,33 +255,39 @@ public class Board extends JPanel implements MouseListener {
 
             // Left Click deck – draw card
             if (e.getX() > deck.getX() && e.getX() < deck.getX()+cardClickAreaWidth
-                    && e.getY() > deck.getY() && e.getY() < deck.getY()+cardClickAreaHeight && isDeckClickable){
-                    // Draw a card and paint it on the board
-                    currentCard = new Card(deck.drawCard());
-                    //make deck unclickable and make pawns clickable
-                    isDeckClickable = false;
-                    isPawnMovable = true;
-                    updateMoveOptions(currentCard.getNumber() + 1);
-                    repaint();
+                    && e.getY() > deck.getY() && e.getY() < deck.getY()+cardClickAreaHeight && isDeckClickable) {
+                handleDeckClick();
+
             }
 
         }
 
         // Right Click - just for debugging purposes
-        if ((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK){
+        if ((e.getModifiers() & InputEvent.BUTTON3_MASK) == InputEvent.BUTTON3_MASK) {
 
-            // Iterate through pawns
             for (Pawn pawn : pawns) {
                 if (e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
-                        && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight){
-
-                    // Move pawn back a space
-                    pawn.moveForward(10);
-                    repaint();
+                        && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight) {
+                    handlePawnRightClick(pawn);
                 }
             }
         }
 
+    }
+
+    private void handleDeckClick() {
+        // Draw a card and paint it on the board
+        currentCard = new Card(deck.drawCard());
+        //make deck unclickable and make pawns clickable
+        isDeckClickable = false;
+        isPawnMovable = true;
+        updateMoveOptions(currentCard.getNumber() + 1);
+        repaint();
+    }
+
+    private void handlePawnRightClick(Pawn pawn) {
+        pawn.moveForward(10);
+        repaint();
     }
 
     public void setupPlayers(PlayerColor first, ArrayList<PlayerColor> playerColors) {
@@ -359,9 +363,9 @@ public class Board extends JPanel implements MouseListener {
 
     public static List<Pawn> getPawns() { return pawns; }
 
-    public class buttonOneClicked implements ActionListener{ public void actionPerformed(ActionEvent e){ optSelected = 1; } }
-    public class buttonTwoClicked implements ActionListener{ public void actionPerformed(ActionEvent e){ optSelected = 2; } }
-    public class skipButtonClicked implements ActionListener{ public void actionPerformed(ActionEvent e){ optSelected = 3; } }
+    public class buttonOneClicked implements ActionListener{ public void actionPerformed(ActionEvent e) { optSelected = 1; } }
+    public class buttonTwoClicked implements ActionListener{ public void actionPerformed(ActionEvent e) { optSelected = 2; } }
+    public class skipButtonClicked implements ActionListener{ public void actionPerformed(ActionEvent e) { optSelected = 3; } }
 
     // Unused MouseListener functions
     public void mousePressed(MouseEvent e) {}

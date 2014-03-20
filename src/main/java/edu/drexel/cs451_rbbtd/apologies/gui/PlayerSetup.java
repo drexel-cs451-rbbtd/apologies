@@ -55,7 +55,7 @@ public class PlayerSetup extends JFrame {
 		this.setVisible(true);
 	}
 	
-	private void setupButtons(){
+	private void setupButtons() {
 		start = new JButton("Start");
 		cancel = new JButton("Cancel");
 		
