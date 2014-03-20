@@ -242,6 +242,7 @@ public class Board extends JPanel implements MouseListener {
 
                         //rotate the first player to the end of the list
                         PlayerColor first = players.get(0);
+                        if (checkIfWon(first) == 1) gameWon(Apologies.getNames(0), first);
                         players.remove(first);
                         players.add(first);
                         Apologies.swapFirstLast();
@@ -363,7 +364,30 @@ public class Board extends JPanel implements MouseListener {
         else PLAYER.setBackground(Color.GREEN);
     }
 
+    // See if all pawns of the specified color are home
+    public int checkIfWon(PlayerColor col)
+    {
+        for (Pawn pawn: pawns) {
+            if (pawn.getColor() == col)
+                if (pawn.isHome == 0) return 0; }
+        return 1;
+    }
+
     public static List<Pawn> getPawns() { return pawns; }
+
+    public void gameWon(String name, PlayerColor first) {
+        Object[] options = {"Play Again with Same Settings", "Play Again with New Settings", "Quit"};
+        int choice = JOptionPane.showOptionDialog(null, name + " WON!\nWhat would you like to do now?",
+                "GAME WON!",
+                JOptionPane.YES_NO_CANCEL_OPTION,
+                JOptionPane.QUESTION_MESSAGE,
+                null,
+                options,
+                options[2]);
+        if (choice == 0) new Apologies(players, first, Apologies.names);
+        else if (choice == 1) new PlayerSetup();
+        else System.exit(0);
+    }
 
     public class buttonOneClicked implements ActionListener{ public void actionPerformed(ActionEvent e) { optSelected = 1; } }
     public class buttonTwoClicked implements ActionListener{ public void actionPerformed(ActionEvent e) { optSelected = 2; } }
