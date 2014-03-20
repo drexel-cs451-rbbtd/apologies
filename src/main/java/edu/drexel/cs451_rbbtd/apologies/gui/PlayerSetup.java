@@ -139,12 +139,12 @@ public class PlayerSetup extends JFrame {
 	}
 	
 	private JPanel addButtons() {
-		JPanel panel = new JPanel();
-		panel.setLayout(new FlowLayout(FlowLayout.CENTER, 75, 0));
-		panel.add(start);
-		panel.add(cancel);
-		
-		return panel;
+        JPanel panel = new JPanel();
+        panel.setLayout(new FlowLayout(FlowLayout.CENTER, 75, 0));
+        panel.add(cancel);
+        panel.add(start);
+
+        return panel;
 	}
 	
 	private void addComponents() {
