@@ -14,6 +14,7 @@ public class Pawn {
     private int positions[][];
     private PlayerColor color;
     public String errorMessage;
+    private int cardNumber;
 
 
     public Pawn(int x, int y, int[][] positions, String path, PlayerColor color) {
@@ -33,6 +34,7 @@ public class Pawn {
 
     public void moveForward(int number) {
         int temp = space; // save initial value in case cannot move back farther
+
         space +=number;
         try{
             x = positions[space][0];
@@ -193,7 +195,10 @@ public class Pawn {
 
     // Calls appropriate card function based on Card Number passed to it
     public void Move(int cardNum, int optSelected){
+        cardNumber = cardNum;
+        // If skipping a turn or stuck at start, do not move.
         if (optSelected == 3) cardNum = 99;
+        if (pawnInBase(optSelected)) cardNum = 99;
         switch (cardNum){
             case 0:
                 this.One(optSelected);
@@ -231,5 +236,11 @@ public class Pawn {
             case 99:
                 break;
         }
+    }
+
+    public boolean pawnInBase(int optSelected)
+    {
+        if (space != -1 || ((cardNumber == 0 || cardNumber == 1 || cardNumber == 10) && optSelected == 1)) return false;
+        else return true;
     }
 } // end class
