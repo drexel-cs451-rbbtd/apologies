@@ -174,8 +174,6 @@ public class Board extends JPanel implements MouseListener {
                 count++;
                 if (e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
                    && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable){
-                        // for debugging, make current card a swap card
-                        currentCard.setNumber(8);
 
                         // If card is an eleven or sorry then swap pawns process
                         if (currentCard.getNumber() == 8 || currentCard.getNumber() == 10){
@@ -210,7 +208,7 @@ public class Board extends JPanel implements MouseListener {
 
                         // Move Pawn
                         if (isPawnMovable == true){
-                            pawn.Move(currentCard.getNumber());
+                            pawn.Move(currentCard.getNumber(), optSelected);
                         }
 
                         // Print error message if applicable
