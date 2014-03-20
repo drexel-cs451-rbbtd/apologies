@@ -110,36 +110,34 @@ public class Pawn {
     }
 
     // Specific card functions
-    public void One(){
-        int choice = 2;
+    public void One(int choice){
 
-        // choice 1
+        // choice 1 start a pawn
         if (choice == 1)
-        this.moveForward(1);
-        this.errorMessage = null;
-
-        // choice 2 start a pawn
-        if (choice == 2)
             if (this.space == -1) // if pawn is in home
                 this.moveForward(1);
             else
                 this.errorMessage = "Must select a pawn in base";
+
+        // choice 2
+        if (choice == 2)
+            this.moveForward(1);
     }
 
-    public void Two(){
-        int choice = 2;
-        // choice 1
+    public void Two(int choice){
+
+        // choice 1 start a pawn
         if (choice == 1){
+            if (this.space == -1) // if pawn is in home
+                this.moveForward(1);
+            else
+                this.errorMessage = "Must select a pawn in base";
+        // choice 2
+
+        if (choice == 2){
             this.moveForward(2);
             this.errorMessage = null;
         }
-
-        // choice 2 start a pawn
-        if (choice == 2){
-            if (this.space == -1) // if pawn is in home
-                this.moveForward(1);
-            else
-                this.errorMessage = "Must select a pawn in base";
 
         }
     }
@@ -205,14 +203,13 @@ public class Pawn {
     }
 
     // Calls appropriate card function based on Card Number passed to it
-    public void Move(int cardNum){
-        cardNum = 8; // change this back
+    public void Move(int cardNum, int optSelected){
         switch (cardNum){
             case 0:
-                this.One();
+                this.One(optSelected);
                 break;
             case 1:
-                this.Two();
+                this.Two(optSelected);
                 break;
             case 2:
                 this.Three();
