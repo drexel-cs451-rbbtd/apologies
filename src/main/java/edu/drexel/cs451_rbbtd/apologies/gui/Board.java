@@ -95,28 +95,32 @@ public class Board extends JPanel implements MouseListener {
         // Initialize pawns
         pawns = new ArrayList<Pawn>();
         if (playerColors.contains(PlayerColor.YELLOW)) {
-          pawns.add(new Pawn(125, 100, yellowPositions, yellowPawn, PlayerColor.YELLOW));
-          pawns.add(new Pawn(165, 100, yellowPositions, yellowPawn, PlayerColor.YELLOW));
-          pawns.add(new Pawn(125, 60, yellowPositions, yellowPawn, PlayerColor.YELLOW));
-          pawns.add(new Pawn(165, 60, yellowPositions, yellowPawn, PlayerColor.YELLOW));
+          int x1 = 130; int x2 = 170; int y1 = 50; int y2 = 90;
+          pawns.add(new Pawn(x1, y2, yellowPositions, yellowPawn, PlayerColor.YELLOW));
+          pawns.add(new Pawn(x2, y2, yellowPositions, yellowPawn, PlayerColor.YELLOW));
+          pawns.add(new Pawn(x1, y1, yellowPositions, yellowPawn, PlayerColor.YELLOW));
+          pawns.add(new Pawn(x2, y1, yellowPositions, yellowPawn, PlayerColor.YELLOW));
         }
         if (playerColors.contains(PlayerColor.GREEN)) {
-          pawns.add(new Pawn(430, 170, greenPositions, greenPawn, PlayerColor.GREEN));
-          pawns.add(new Pawn(470, 170, greenPositions, greenPawn, PlayerColor.GREEN));
-          pawns.add(new Pawn(430, 130, greenPositions, greenPawn, PlayerColor.GREEN));
-          pawns.add(new Pawn(470, 130, greenPositions, greenPawn, PlayerColor.GREEN));
+          int x1 = 445; int x2 = 485; int y1 = 130; int y2 = 170;
+          pawns.add(new Pawn(x1, y2, greenPositions, greenPawn, PlayerColor.GREEN));
+          pawns.add(new Pawn(x2, y2, greenPositions, greenPawn, PlayerColor.GREEN));
+          pawns.add(new Pawn(x1, y1, greenPositions, greenPawn, PlayerColor.GREEN));
+          pawns.add(new Pawn(x2, y1, greenPositions, greenPawn, PlayerColor.GREEN));
         }
         if (playerColors.contains(PlayerColor.RED)) {
-          pawns.add(new Pawn(365, 480, redPositions, redPawn, PlayerColor.RED));
-          pawns.add(new Pawn(405, 480, redPositions, redPawn, PlayerColor.RED));
-          pawns.add(new Pawn(365, 440, redPositions, redPawn, PlayerColor.RED));
-          pawns.add(new Pawn(405, 440, redPositions, redPawn, PlayerColor.RED));
+          int x1 = 365; int x2 = 405; int y1 = 440; int y2 = 480;
+          pawns.add(new Pawn(x1, y2, redPositions, redPawn, PlayerColor.RED));
+          pawns.add(new Pawn(x2, y2, redPositions, redPawn, PlayerColor.RED));
+          pawns.add(new Pawn(x1, y1, redPositions, redPawn, PlayerColor.RED));
+          pawns.add(new Pawn(x2, y1, redPositions, redPawn, PlayerColor.RED));
         }
         if (playerColors.contains(PlayerColor.BLUE)) {
-          pawns.add(new Pawn(60, 415, bluePositions, bluePawn, PlayerColor.BLUE));
-          pawns.add(new Pawn(100, 415, bluePositions, bluePawn, PlayerColor.BLUE));
-          pawns.add(new Pawn(60, 375, bluePositions, bluePawn, PlayerColor.BLUE));
-          pawns.add(new Pawn(100, 375, bluePositions, bluePawn, PlayerColor.BLUE));
+          int x1 = 45; int x2 = 85; int y1 = 365; int y2 = 405;
+          pawns.add(new Pawn(x1, y2, bluePositions, bluePawn, PlayerColor.BLUE));
+          pawns.add(new Pawn(x2, y2, bluePositions, bluePawn, PlayerColor.BLUE));
+          pawns.add(new Pawn(x1, y1, bluePositions, bluePawn, PlayerColor.BLUE));
+          pawns.add(new Pawn(x2, y1, bluePositions, bluePawn, PlayerColor.BLUE));
         }
 
         setupPlayers(first, playerColors);
