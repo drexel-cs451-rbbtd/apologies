@@ -63,6 +63,8 @@ public class Pawn {
             int x_pos = positions[space][0];
             int y_pos = positions[space][1];
             handleBumps(x_pos, y_pos);
+            boolean slid = handleSlides(x_pos, y_pos);
+            if (slid) { x_pos += 3; y_pos += 3; }
             x = x_pos;
             y = y_pos;
         }
@@ -81,6 +83,8 @@ public class Pawn {
             int x_pos = positions[space][0];
             int y_pos = positions[space][1];
             handleBumps(x_pos, y_pos);
+            boolean slid = handleSlides(x_pos, y_pos);
+            if (slid) { x_pos += 3; y_pos += 3; }
             x = x_pos;
             y = y_pos;
         }
@@ -284,5 +288,29 @@ public class Pawn {
                 pawn.space = -1;
             }
         }
+    }
+
+    public boolean handleSlides(int x_pos, int y_pos)
+    {
+        int space_temp = space + 1;
+        int x_temp;
+        int y_temp;
+        if ((x_pos == positions[53][0] && y_pos == positions[53][1])
+            || (x_pos == positions[11][0] && y_pos == positions[11][1])
+            || (x_pos == positions[19][0] && y_pos == positions[19][1])
+            || (x_pos == positions[25][0] && y_pos == positions[25][1])
+            || (x_pos == positions[33][0] && y_pos == positions[33][1])
+            || (x_pos == positions[39][0] && y_pos == positions[39][1])
+            || (x_pos == positions[47][0] && y_pos == positions[47][1])) {
+            for (int i = 0; i < 3; i++) {
+                x_temp = positions[space_temp][0];
+                y_temp = positions[space_temp][1];
+                for (Pawn pawn: Board.getPawns()) {
+                    if (pawn.getX() == x_temp && pawn.getY() == y_temp) {
+                        pawn.x = pawn.baseX;
+                        pawn.y = pawn.baseY;
+                        pawn.space = -1; } }
+                space_temp++; } return true; }
+        return false;
     }
 } // end class
