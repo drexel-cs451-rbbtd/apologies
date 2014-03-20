@@ -204,6 +204,7 @@ public class Pawn {
 
     // Calls appropriate card function based on Card Number passed to it
     public void Move(int cardNum, int optSelected){
+        if (optSelected == 3) cardNum = 99;
         switch (cardNum){
             case 0:
                 this.One(optSelected);
@@ -237,6 +238,8 @@ public class Pawn {
                 break;
             case 10:
                 this.Apologies();
+                break;
+            case 99:
                 break;
         }
     }
