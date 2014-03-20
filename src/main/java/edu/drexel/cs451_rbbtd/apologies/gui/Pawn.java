@@ -174,8 +174,7 @@ public class Pawn {
             this.moveBack(1);
     }
 
-    public void Eleven(){
-        int choice = 2;  // unimplemented second function swap
+    public void Eleven(int choice){
 
         // choice 1
         if (choice == 1){
@@ -187,16 +186,7 @@ public class Pawn {
     }
 
     public void Twelve(){
-        int choice = 2;
-
-        // choice 1
-        if (choice == 1){
-              this.moveForward(12);
-        }
-
-        // choice 2
-        if (choice == 2);
-        this.moveForward(1);
+        this.moveForward(12);
     }
 
     public void Apologies(){ // unimplemented for now
@@ -231,7 +221,7 @@ public class Pawn {
                 this.Ten();
                 break;
             case 8:
-                this.Eleven();
+                this.Eleven(optSelected);
                 break;
             case 9:
                 this.Twelve();
