@@ -36,9 +36,6 @@ public class Card {
     public int getNumber() {
         return cardNum;
     }
-    public void setNumber(int number) {
-        this.cardNum = number;
-    }
 
     public Image getImage() {
         return image;

@@ -31,7 +31,7 @@ public class Pawn {
         this.positions = positions;
         this.color = color;
 
-        switch (color){
+        switch (color) {
             case RED:
                 this.homeX = this.x + 80;
                 this.homeY = this.y - 140;
@@ -66,7 +66,7 @@ public class Pawn {
             x = x_pos;
             y = y_pos;
         }
-        catch (ArrayIndexOutOfBoundsException e){
+        catch (ArrayIndexOutOfBoundsException e) {
             this.x = homeX;
             this.y = homeY;
             space = temp;
@@ -84,7 +84,7 @@ public class Pawn {
             x = x_pos;
             y = y_pos;
         }
-        catch (ArrayIndexOutOfBoundsException e){
+        catch (ArrayIndexOutOfBoundsException e) {
             this.x = baseX;
             this.y = baseY;
             space = temp;
@@ -99,17 +99,17 @@ public class Pawn {
         return y;
     }
 
-    public int getSpace(){
+    public int getSpace() {
         return space;
     }
 
-    public void setSpace(int number){
+    public void setSpace(int number) {
         this.space = number;
     }
 
-    public int getIndex(int x, int y){ // gets the index of an x and y pair
+    public int getIndex(int x, int y) { // gets the index of an x and y pair
         int index = 0;
-        for (int i = 0; i < positions.length; i++){
+        for (int i = 0; i < positions.length; i++) {
             if (positions[i][0] == x && positions[i][1] == y)
             {
                 index = i;
@@ -135,14 +135,14 @@ public class Pawn {
     //////////////////////////////////// CARD FUNCTIONS//////////////////////////////////////
 
     // Move to space function for card swapping
-    public void moveTo(int space){
+    public void moveTo(int space) {
         this.space = space;
         x = positions[space][0];
         y = positions[space][1];
     }
 
     // Specific card functions
-    public void One(int choice){
+    public void One(int choice) {
 
         // choice 1 start a pawn
         if (choice == 1)
@@ -156,17 +156,17 @@ public class Pawn {
             this.moveForward(1);
     }
 
-    public void Two(int choice){
+    public void Two(int choice) {
 
         // choice 1 start a pawn
-        if (choice == 1){
+        if (choice == 1) {
             if (this.space == -1) // if pawn is in home
                 this.moveForward(1);
             else
                 this.errorMessage = "Must select a pawn in base";
         // choice 2
 
-        if (choice == 2){
+        if (choice == 2) {
             this.moveForward(2);
             this.errorMessage = null;
         }
@@ -174,27 +174,27 @@ public class Pawn {
         }
     }
 
-    public void Three(){
+    public void Three() {
          this.moveForward(3);
     }
 
-    public void Four(){
+    public void Four() {
             this.moveBack(4);
     }
 
-    public void Five(){
+    public void Five() {
             this.moveForward(5);
     }
 
-    public void Seven(){ // Unimplemented for now
+    public void Seven() { // Unimplemented for now
             this.moveForward(7);
     }
 
-    public void Eight(){
+    public void Eight() {
             this.moveForward(8);
     }
 
-    public void Ten(int choice){
+    public void Ten(int choice) {
 
         // choice 1
         if (choice == 1)
@@ -205,31 +205,31 @@ public class Pawn {
             this.moveBack(1);
     }
 
-    public void Eleven(int choice){
+    public void Eleven(int choice) {
 
         // choice 1
-        if (choice == 1){
+        if (choice == 1) {
               this.moveForward(11);
         }
         // choice 2
-        if (choice == 2){
+        if (choice == 2) {
         }
     }
 
-    public void Twelve(){
+    public void Twelve() {
         this.moveForward(12);
     }
 
-    public void Apologies(){ // unimplemented for now
+    public void Apologies() { // unimplemented for now
     }
 
     // Calls appropriate card function based on Card Number passed to it
-    public void Move(int cardNum, int optSelected){
+    public void Move(int cardNum, int optSelected) {
         cardNumber = cardNum;
         // If skipping a turn or stuck at start, do not move.
         if (optSelected == 3) cardNum = 99;
         if (pawnInBase(optSelected)) cardNum = 99;
-        switch (cardNum){
+        switch (cardNum) {
             case 0:
                 this.One(optSelected);
                 break;
