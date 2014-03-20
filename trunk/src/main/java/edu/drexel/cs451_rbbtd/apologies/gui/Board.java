@@ -271,7 +271,7 @@ public class Board extends JPanel implements MouseListener {
                         && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight){
 
                     // Move pawn back a space
-                    pawn.moveForward(1);
+                    pawn.moveForward(10);
                     repaint();
                 }
             }

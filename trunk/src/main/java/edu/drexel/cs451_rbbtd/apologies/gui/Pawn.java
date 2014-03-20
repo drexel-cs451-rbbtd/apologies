@@ -7,6 +7,9 @@ public class Pawn {
 
     private int baseX;
     private int baseY;
+    private int homeX;
+    private int homeY;
+    public int isHome = 0;
     private int x;
     private int y;
     private Image image;
@@ -26,6 +29,25 @@ public class Pawn {
         this.baseY = y;
         this.positions = positions;
         this.color = color;
+
+        switch (color){
+            case RED:
+                this.homeX = this.x + 80;
+                this.homeY = this.y - 140;
+                break;
+            case GREEN:
+                this.homeX = this.x - 140;
+                this.homeY = this.y - 80;
+                break;
+            case BLUE:
+                this.homeX = this.x + 140;
+                this.homeY = this.y + 80;
+                break;
+            case YELLOW:
+                this.homeX = this.x - 80;
+                this.homeY = this.y + 140;
+                break;
+        }
     }
 
     public PlayerColor getColor() {
@@ -41,9 +63,10 @@ public class Pawn {
             y = positions[space][1];
         }
         catch (ArrayIndexOutOfBoundsException e){
-            this.x = baseX;
-            this.y = baseY;
+            this.x = homeX;
+            this.y = homeY;
             space = temp;
+            this.isHome = 1;
         }
     }
 
