@@ -185,7 +185,7 @@ public class Board extends JPanel implements MouseListener {
                 if (e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
                    && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable) {
 
-                        // If card is an eleven or sorry then special sequence
+                        // If card is an Eleven or Apologies then special sequence
                         if ((currentCard.getNumber() == 8 && optSelected == 2) ||
                             (currentCard.getNumber() == 10 && optSelected != 3)) {
                             if (specialSequence == 0) {
@@ -205,7 +205,7 @@ public class Board extends JPanel implements MouseListener {
 
                                 // swap pawns logic
                                 int space1 = pawns.get(indexOne).getSpace(); // the space of your pawn
-                                int space2 = pawns.get(indexTwo).getSpace(); // the space of opponents paws
+                                int space2 = pawns.get(indexTwo).getSpace(); // the space of opponents pawns
 
                                 int temp = pawns.get(indexOne).getIndex(pawns.get(indexTwo).getX(), pawns.get(indexTwo).getY());
                                 int temp2 = pawns.get(indexTwo).getIndex(pawns.get(indexOne).getX(), pawns.get(indexOne).getY());
