@@ -68,7 +68,7 @@ public class PlayerSetup extends JFrame {
                 if (isSetup) {
                     ArrayList<PlayerColor> colors = c.getChecked(checkGroup);
                     PlayerColor first = c.getFirst(rads);
-                    new Apologies(colors, first);
+                    new Apologies(colors, first, names);
                     dispose();
                 }
                 else {
@@ -179,5 +179,4 @@ public class PlayerSetup extends JFrame {
 		// clear radio buttons
 		radioGroup.clearSelection();
 	}
-
 }
