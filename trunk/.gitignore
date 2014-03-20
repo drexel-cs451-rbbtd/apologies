@@ -17,3 +17,11 @@
 .idea/gradle.xml
 .idea/libraries/
 *.iws
+
+
+# http://stackoverflow.com/q/17200831/578288
+.gradle
+
+out
+build
+production
