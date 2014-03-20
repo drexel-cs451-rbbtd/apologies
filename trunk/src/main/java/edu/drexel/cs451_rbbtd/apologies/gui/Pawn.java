@@ -2,6 +2,7 @@ package edu.drexel.cs451_rbbtd.apologies.gui;
 
 import javax.swing.*;
 import java.awt.*;
+import java.util.List;
 
 public class Pawn {
 
@@ -13,7 +14,7 @@ public class Pawn {
     private int x;
     private int y;
     private Image image;
-    private int space = -1; // Records how many spaces forward from start location the pawn has traveled
+    protected int space = -1; // Records how many spaces forward from start location the pawn has traveled
     private int positions[][];
     private PlayerColor color;
     public String errorMessage;
@@ -59,8 +60,11 @@ public class Pawn {
 
         space +=number;
         try{
-            x = positions[space][0];
-            y = positions[space][1];
+            int x_pos = positions[space][0];
+            int y_pos = positions[space][1];
+            handleBumps(x_pos, y_pos);
+            x = x_pos;
+            y = y_pos;
         }
         catch (ArrayIndexOutOfBoundsException e){
             this.x = homeX;
@@ -74,8 +78,11 @@ public class Pawn {
         int temp = space; // save initial value in case cannot move back farther
         space -=number;
         try{
-            x = positions[space][0];
-            y = positions[space][1];
+            int x_pos = positions[space][0];
+            int y_pos = positions[space][1];
+            handleBumps(x_pos, y_pos);
+            x = x_pos;
+            y = y_pos;
         }
         catch (ArrayIndexOutOfBoundsException e){
             this.x = baseX;
@@ -265,5 +272,17 @@ public class Pawn {
     {
         if (space != -1 || ((cardNumber == 0 || cardNumber == 1 || cardNumber == 10) && optSelected == 1)) return false;
         else return true;
+    }
+
+    public void handleBumps(int x_pos, int y_pos)
+    {
+        List<Pawn> pawns = Board.getPawns();
+        for (Pawn pawn: pawns) {
+            if (pawn.getX() == x_pos && pawn.getY() == y_pos) {
+                pawn.x = pawn.baseX;
+                pawn.y = pawn.baseY;
+                pawn.space = -1;
+            }
+        }
     }
 } // end class
