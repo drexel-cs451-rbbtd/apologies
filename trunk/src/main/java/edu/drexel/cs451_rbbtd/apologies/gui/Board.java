@@ -175,74 +175,79 @@ public class Board extends JPanel implements MouseListener {
             for (Pawn pawn: pawns) {
                 pawnIndexPlus1++;
                 if (e.getX() > pawn.getX() && e.getX() < pawn.getX()+pawnClickAreaWidth
-                   && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable) {
+                        && e.getY() > pawn.getY() && e.getY() < pawn.getY()+pawnClickAreaHeight && isPawnMovable) {
 
-                        // If card is an Eleven or Apologies then special sequence
-                        if ((currentCard.getNumber() == 8 && optSelected == 2) ||
+                    // If card is an Eleven or Apologies then special sequence
+                    if ((currentCard.getNumber() == 8 && optSelected == 2) ||
                             (currentCard.getNumber() == 10 && optSelected != 3)) {
-                            if (specialSequence == 0) {
-                                selectionX = pawn.getX() + 15;
-                                selectionY = pawn.getY() + 10;
-                                pawnOne = pawns.get(pawnIndexPlus1-1);
-                                indexOne = pawnIndexPlus1-1;
-                                pawn.errorMessage = "Select a Pawn to swap with.";
-                                repaint();
-                            } else if (specialSequence == 1) {
-                                selectionX = pawn.getX() + 15;
-                                selectionY = pawn.getY() + 10;
-                                pawnTwo = pawns.get(pawnIndexPlus1-1);
-                                indexTwo = pawnIndexPlus1-1;
+                        if (specialSequence == 0) {
+                            selectionX = pawn.getX() + 15;
+                            selectionY = pawn.getY() + 10;
+                            pawnOne = pawns.get(pawnIndexPlus1-1);
+                            indexOne = pawnIndexPlus1-1;
+                            pawn.errorMessage = "Select a Pawn to swap with.";
+                            repaint();
+                        } else if (specialSequence == 1) {
+                            selectionX = pawn.getX() + 15;
+                            selectionY = pawn.getY() + 10;
+                            pawnTwo = pawns.get(pawnIndexPlus1-1);
+                            indexTwo = pawnIndexPlus1-1;
 
-                                // swap pawns logic
-                                int space1 = pawns.get(indexOne).getSpace(); // the space of your pawn
-                                int space2 = pawns.get(indexTwo).getSpace(); // the space of opponents pawns
+                            // swap pawns logic
+                            int space1 = pawns.get(indexOne).getSpace(); // the space of your pawn
+                            int space2 = pawns.get(indexTwo).getSpace(); // the space of opponents pawns
 
-                                int temp = pawns.get(indexOne).getIndex(pawns.get(indexTwo).getX(), pawns.get(indexTwo).getY());
-                                int temp2 = pawns.get(indexTwo).getIndex(pawns.get(indexOne).getX(), pawns.get(indexOne).getY());
+                            int temp = pawns.get(indexOne).getIndex(pawns.get(indexTwo).getX(), pawns.get(indexTwo).getY());
+                            int temp2 = pawns.get(indexTwo).getIndex(pawns.get(indexOne).getX(), pawns.get(indexOne).getY());
 
-                                pawns.get(indexOne).moveTo(temp);
-                                pawns.get(indexTwo).moveTo(temp2);
+                            pawns.get(indexOne).moveTo(temp);
+                            pawns.get(indexTwo).moveTo(temp2);
 
-                                if (currentCard.getNumber() == 10) // if apologies, back up swapped pawn back into base
-                                    pawns.get(indexTwo).moveBack(1);
-                                    pawns.get(indexTwo).space = -1;
-                                repaint();
-                            }
-                            specialSequence++;
+                            if (currentCard.getNumber() == 10) // if apologies, back up swapped pawn back into base
+                                pawns.get(indexTwo).moveBack(1);
+                            pawns.get(indexTwo).space = -1;
+                            repaint();
                         }
+                        specialSequence++;
+                    }
 
-                        if (pawn.getColor() != playerColorsInTurnOrder.get(0)) return;
+                    if (pawn.getColor() != playerColorsInTurnOrder.get(0)) {
+                        return;
+                    }
 
-                        // Move Pawn
-                        if (isPawnMovable == true) {
-                            pawn.Move(currentCard.getNumber(), optSelected);
-                        }
+                    // Move Pawn
+                    if (isPawnMovable == true) {
+                        pawn.Move(currentCard.getNumber(), optSelected);
+                    }
 
-                        // Turn is over, do not show move options.
-                        action1RadioButton.setVisible(false);
-                        action2RadioButton.setVisible(false);
-                        skipRadioButton.setVisible(false);
+                    // Turn is over, do not show move options.
+                    action1RadioButton.setVisible(false);
+                    action2RadioButton.setVisible(false);
+                    skipRadioButton.setVisible(false);
 
-                        // Print error message if applicable
-                        if (pawn.getErrorMessage() != null) {
-                            JOptionPane.showMessageDialog(this, pawn.getErrorMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-                            pawn.resetErrorMessage(); // remove error message so it won't carry over to to next card
-                            break;
-                        }
+                    // Print error message if applicable
+                    if (pawn.getErrorMessage() != null) {
+                        JOptionPane.showMessageDialog(this, pawn.getErrorMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+                        pawn.resetErrorMessage(); // remove error message so it won't carry over to to next card
+                        break;
+                    }
 
-                        //rotate the first player to the end of the list
-                        PlayerColor first = playerColorsInTurnOrder.get(0);
-                        if (checkIfWon(first) == 1) gameWon(ApologiesGameWindow.getNameOfPlayerAtIndex(0), first);
-                        playerColorsInTurnOrder.remove(first);
-                        playerColorsInTurnOrder.add(first);
-                        ApologiesGameWindow.cycleFirstPlayerToLast();
-                        playerStatusTextArea.setText(ApologiesGameWindow.getNameOfPlayerAtIndex(0) + "'s Turn");
-                        updateTurnLabel(playerColorsInTurnOrder.get(0));
-                        //reset the clickable flag for deck and pawn and sequence
-                        isDeckClickable = true;
-                        isPawnMovable = false;
-                        specialSequence = 0;
-                        repaint();
+                    //rotate the first player to the end of the list
+                    PlayerColor currentPlayer = playerColorsInTurnOrder.get(0);
+                    if (checkIfWon(currentPlayer) == 1) {
+                        gameWon(ApologiesGameWindow.getNameOfPlayerAtIndex(0), currentPlayer);
+                    }
+                    cycleFirstPlayerToLast(currentPlayer);
+                    ApologiesGameWindow.cycleFirstPlayerToLast();
+                    playerStatusTextArea.setText(ApologiesGameWindow.getNameOfPlayerAtIndex(0) + "’s Turn");
+                    updateTurnLabel(playerColorsInTurnOrder.get(0));
+
+                    //reset the clickable flag for deck and pawn and sequence
+                    isDeckClickable = true;
+                    isPawnMovable = false;
+                    specialSequence = 0;
+
+                    repaint();
                 }
             }
 
@@ -265,6 +270,11 @@ public class Board extends JPanel implements MouseListener {
                 }
             }
         }
+    }
+
+    private void cycleFirstPlayerToLast(PlayerColor currentPlayer) {
+        playerColorsInTurnOrder.remove(currentPlayer);
+        playerColorsInTurnOrder.add(currentPlayer);
     }
 
     private void handleDeckClick() {
@@ -382,7 +392,9 @@ public class Board extends JPanel implements MouseListener {
                 null,
                 options,
                 options[2]);
-        if (choice == 0) new ApologiesGameWindow(playerColorsInTurnOrder, first, ApologiesGameWindow.playerNames);
+        if (choice == 0) {
+            new ApologiesGameWindow(playerColorsInTurnOrder, first, ApologiesGameWindow.playerNames);
+        }
         else if (choice == 1) new PlayerSetup();
         else System.exit(0);
     }
