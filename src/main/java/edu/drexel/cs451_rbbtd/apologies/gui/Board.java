@@ -239,8 +239,8 @@ public class Board extends JPanel implements MouseListener {
                     }
                     cycleFirstPlayerToLast(currentPlayer);
                     ApologiesGameWindow.cycleFirstPlayerToLast();
-                    playerStatusTextArea.setText(ApologiesGameWindow.getNameOfPlayerAtIndex(0) + "’s Turn");
-                    updateTurnLabel(playerColorsInTurnOrder.get(0));
+                    playerStatusTextArea.setText(ApologiesGameWindow.getNameOfPlayerAtIndex(0) + "'s Turn");
+                    updateTurnLabelBackgroundColor(playerColorsInTurnOrder.get(0));
 
                     //reset the clickable flag for deck and pawn and sequence
                     isDeckClickable = true;
@@ -301,9 +301,9 @@ public class Board extends JPanel implements MouseListener {
         // Get the correct player order and set BG color
         playerColorsInTurnOrder = sortPlayerColorsInTurnOrder(playerColors);
 
-        updateTurnLabel(firstPlayersColor);
+        updateTurnLabelBackgroundColor(firstPlayersColor);
 
-        playerStatusTextArea.setText(ApologiesGameWindow.getNameOfPlayerAtIndex(0) + "’s Turn");
+        playerStatusTextArea.setText(ApologiesGameWindow.getNameOfPlayerAtIndex(0) + "'s Turn");
     }
 
     private List<PlayerColor> sortPlayerColorsInTurnOrder(Collection<PlayerColor> colorsToSort) {
@@ -354,7 +354,7 @@ public class Board extends JPanel implements MouseListener {
         else action2RadioButton.setVisible(true);
     }
 
-    public void updateTurnLabel(PlayerColor nextPlayerCol)
+    public void updateTurnLabelBackgroundColor(PlayerColor nextPlayerCol)
     {
         playerStatusTextArea.setForeground(Color.white);
         if (nextPlayerCol == PlayerColor.RED) {
