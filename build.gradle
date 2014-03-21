@@ -1,7 +1,10 @@
 apply plugin: 'java'
+apply plugin: 'application'
 
 sourceCompatibility = 1.6
 version = '1.0'
+mainClassName = "edu.drexel.cs451_rbbtd.apologies.gui.MainMenu"
+manifest.mainAttributes("Main-Class" : "edu.drexel.cs451_rbbtd.apologies.gui.MainMenu")
 
 repositories {
     mavenCentral()
