@@ -143,6 +143,7 @@ public class PlayerSetup extends JFrame {
         panel.setLayout(new FlowLayout(FlowLayout.CENTER, 75, 0));
         panel.add(cancel);
         panel.add(start);
+        controlPanel.getRootPane().setDefaultButton(start);
 
         return panel;
 	}
