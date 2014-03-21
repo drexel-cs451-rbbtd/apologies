@@ -6,19 +6,19 @@ import java.util.Random;
 
 public class Deck {
 
-    String deckImagePath = Apologies.getResourcePath("Deck.png");
+    String deckImagePath = ApologiesGameWindow.getResourcePath("Deck.png");
 
-    String oneImagePath = Apologies.getResourcePath("One.png");
-    String twoImagePath = Apologies.getResourcePath("Two.png");
-    String threeImagePath = Apologies.getResourcePath("Three.png");
-    String fourImagePath = Apologies.getResourcePath("Four.png");
-    String fiveImagePath = Apologies.getResourcePath("Five.png");
-    String sevenImagePath = Apologies.getResourcePath("Seven.png");
-    String eightImagePath = Apologies.getResourcePath("Eight.png");
-    String tenImagePath = Apologies.getResourcePath("Ten.png");
-    String elevenImagePath = Apologies.getResourcePath("Eleven.png");
-    String twelveImagePath = Apologies.getResourcePath("Twelve.png");
-    String apologiesImagePath = Apologies.getResourcePath("Apologies!.png");
+    String oneImagePath = ApologiesGameWindow.getResourcePath("One.png");
+    String twoImagePath = ApologiesGameWindow.getResourcePath("Two.png");
+    String threeImagePath = ApologiesGameWindow.getResourcePath("Three.png");
+    String fourImagePath = ApologiesGameWindow.getResourcePath("Four.png");
+    String fiveImagePath = ApologiesGameWindow.getResourcePath("Five.png");
+    String sevenImagePath = ApologiesGameWindow.getResourcePath("Seven.png");
+    String eightImagePath = ApologiesGameWindow.getResourcePath("Eight.png");
+    String tenImagePath = ApologiesGameWindow.getResourcePath("Ten.png");
+    String elevenImagePath = ApologiesGameWindow.getResourcePath("Eleven.png");
+    String twelveImagePath = ApologiesGameWindow.getResourcePath("Twelve.png");
+    String apologiesImagePath = ApologiesGameWindow.getResourcePath("Apologies!.png");
 
     String cardImagePaths[] = {oneImagePath, twoImagePath, threeImagePath, fourImagePath, fiveImagePath, sevenImagePath, eightImagePath, tenImagePath, elevenImagePath, twelveImagePath, apologiesImagePath};
 

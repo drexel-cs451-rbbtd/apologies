@@ -5,19 +5,19 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.util.ArrayList;
+import java.util.*;
+import java.util.List;
 
 
-public class Apologies extends JFrame {
-    public static ArrayList<JTextField> names = new ArrayList<JTextField>();
+public class ApologiesGameWindow extends JFrame {
+    public static List<String> playerNames = new ArrayList<String>();
     private JMenuBar menuBar;
     private JMenu menu;
 
-    public Apologies(ArrayList<PlayerColor> playerColors, PlayerColor first, ArrayList<JTextField> pNames) {
-        names = pNames;
+    public ApologiesGameWindow(List<PlayerColor> playerColors, PlayerColor first, List<String> playerNames) {
+        ApologiesGameWindow.playerNames = playerNames;
         // initialize art assets
         String boardIMG = getResourcePath("ApologiesBoard.png");
-//        String boardIMG = "resources/ApologiesBoard.png";
         Image board = new ImageIcon(boardIMG).getImage();
         setupMenu();
         add(new Board(board, playerColors, first));
@@ -35,12 +35,15 @@ public class Apologies extends JFrame {
                 + "src" + File.separator + "main" + File.separator + "resources" + File.separator + resourceFilename;
     }
 
-    public static String getNames(int i) { return names.get(i).getText(); }
+    public static String getNameOfPlayerAtIndex(int i) {
+        return playerNames.get(i);
+    }
 
-    public static void swapFirstLast() {
-        JTextField nextName = names.get(0);
-        names.remove(nextName);
-        names.add(nextName);
+    public static void cycleFirstPlayerToLast() {
+        final int indexOfFirstPlayer = 0;
+        String nextName = playerNames.get(indexOfFirstPlayer);
+        playerNames.remove(indexOfFirstPlayer);
+        playerNames.add(nextName);
     }
 
     private void setupMenu() {
@@ -55,7 +58,6 @@ public class Apologies extends JFrame {
         menu.add(quit);
         menuBar.add(menu);
         setJMenuBar(menuBar);
-
     }
 
 } // end class

@@ -1,7 +1,5 @@
 package edu.drexel.cs451_rbbtd.apologies.gui;
 
-import com.sun.jmx.remote.security.JMXPluggableAuthenticator;
-
 import java.util.*;
 import javax.swing.*;
 import java.awt.*;
@@ -17,20 +15,19 @@ public class Board extends JPanel implements MouseListener {
     private Image img;
     private Deck deck;
     private Card currentCard;
-    private JPanel[] Panels;
     private int selectionX = 0;
     private int selectionY = 0;
     private Positions positions = new Positions();
-    private JRadioButton TWO_A;
-    private JRadioButton TWO_B;
-    private JRadioButton SKIP;
-    private JTextArea PLAYER;
+    private JRadioButton action1RadioButton;
+    private JRadioButton action2RadioButton;
+    private JRadioButton skipRadioButton;
+    private JTextArea playerStatusTextArea;
     private int optSelected = 1;
     private Boolean isDeckClickable = true;
     private Boolean isPawnMovable = false;
-    private ArrayList<PlayerColor> players = new ArrayList<PlayerColor>();
+    private List<PlayerColor> playerColorsInTurnOrder = new ArrayList<PlayerColor>();
     private int specialSequence = 0;
-    private Image drawImg = new ImageIcon(Apologies.getResourcePath("draw.png")).getImage();
+    private Image drawImg = new ImageIcon(ApologiesGameWindow.getResourcePath("draw.png")).getImage();
 
     // For pawn swapping logic
     private Pawn pawnOne;
@@ -38,18 +35,13 @@ public class Board extends JPanel implements MouseListener {
     private int indexOne;
     private int indexTwo;
 
-    String yellowPawn = Apologies.getResourcePath("YellowPawn.png");
-    String greenPawn = Apologies.getResourcePath("GreenPawn.png");
-    String redPawn = Apologies.getResourcePath("RedPawn.png");
-    String bluePawn = Apologies.getResourcePath("BluePawn.png");
+    String yellowPawn = ApologiesGameWindow.getResourcePath("YellowPawn.png");
+    String greenPawn = ApologiesGameWindow.getResourcePath("GreenPawn.png");
+    String redPawn = ApologiesGameWindow.getResourcePath("RedPawn.png");
+    String bluePawn = ApologiesGameWindow.getResourcePath("BluePawn.png");
     Image selectionBoxImage;
 
-//    String yellowPawn = "resources/YellowPawn.png";
-//    String greenPawn = "resources/GreenPawn.png";
-//    String redPawn = "resources/RedPawn.png";
-//    String bluePawn = "resources/BluePawn.png";
-
-    public Board(Image img, ArrayList<PlayerColor> playerColors, PlayerColor first) {
+    public Board(Image img, List<PlayerColor> playerColors, PlayerColor first) {
 
         // Initialize positions
         int yellowPositions[][] = positions.yellowPositions;
@@ -58,7 +50,7 @@ public class Board extends JPanel implements MouseListener {
         int bluePositions[][] = positions.bluePositions;
 
         // init selectionBox image
-        String selectionBox = Apologies.getResourcePath("selectionBox.png");
+        String selectionBox = ApologiesGameWindow.getResourcePath("selectionBox.png");
         ImageIcon ii = new ImageIcon(selectionBox);
         selectionBoxImage = ii.getImage();
 
@@ -71,27 +63,27 @@ public class Board extends JPanel implements MouseListener {
 
         // Create panels
         JPanel TWO_PANEL = new JPanel();
-        TWO_A = new JRadioButton("Start a Pawn");
-        TWO_B = new JRadioButton("Move a pawn forward 2 spaces");
-        SKIP = new JRadioButton("Skip Turn");
-        PLAYER = new JTextArea("");
-        PLAYER.setEditable(false);
-        PLAYER.setBackground(TWO_PANEL.getBackground());
-        PLAYER.setForeground(Color.white);
-        TWO_A.addActionListener(new buttonOneClicked());
-        TWO_B.addActionListener(new buttonTwoClicked());
-        TWO_A.setVisible(false);
-        TWO_B.setVisible(false);
-        SKIP.setVisible(false);
-        SKIP.addActionListener(new skipButtonClicked());
+        action1RadioButton = new JRadioButton("Start a Pawn");
+        action2RadioButton = new JRadioButton("Move a pawn forward 2 spaces");
+        skipRadioButton = new JRadioButton("Skip Turn");
+        playerStatusTextArea = new JTextArea("");
+        playerStatusTextArea.setEditable(false);
+        playerStatusTextArea.setBackground(TWO_PANEL.getBackground());
+        playerStatusTextArea.setForeground(Color.white);
+        action1RadioButton.addActionListener(new buttonOneClicked());
+        action2RadioButton.addActionListener(new buttonTwoClicked());
+        action1RadioButton.setVisible(false);
+        action2RadioButton.setVisible(false);
+        skipRadioButton.setVisible(false);
+        skipRadioButton.addActionListener(new skipButtonClicked());
         ButtonGroup TWO_OPTIONS = new ButtonGroup();
-        TWO_OPTIONS.add(TWO_A);
-        TWO_OPTIONS.add(TWO_B);
-        TWO_OPTIONS.add(SKIP);
-        TWO_PANEL.add(TWO_A);
-        TWO_PANEL.add(TWO_B);
-        TWO_PANEL.add(SKIP);
-        TWO_PANEL.add(PLAYER);
+        TWO_OPTIONS.add(action1RadioButton);
+        TWO_OPTIONS.add(action2RadioButton);
+        TWO_OPTIONS.add(skipRadioButton);
+        TWO_PANEL.add(action1RadioButton);
+        TWO_PANEL.add(action2RadioButton);
+        TWO_PANEL.add(skipRadioButton);
+        TWO_PANEL.add(playerStatusTextArea);
         // Set current panel
         this.setLayout(new BorderLayout());
         this.add(TWO_PANEL, BorderLayout.SOUTH);
@@ -219,7 +211,7 @@ public class Board extends JPanel implements MouseListener {
                             specialSequence++;
                         }
 
-                        if (pawn.getColor() != players.get(0)) return;
+                        if (pawn.getColor() != playerColorsInTurnOrder.get(0)) return;
 
                         // Move Pawn
                         if (isPawnMovable == true) {
@@ -227,9 +219,9 @@ public class Board extends JPanel implements MouseListener {
                         }
 
                         // Turn is over, do not show move options.
-                        TWO_A.setVisible(false);
-                        TWO_B.setVisible(false);
-                        SKIP.setVisible(false);
+                        action1RadioButton.setVisible(false);
+                        action2RadioButton.setVisible(false);
+                        skipRadioButton.setVisible(false);
 
                         // Print error message if applicable
                         if (pawn.getErrorMessage() != null) {
@@ -239,13 +231,13 @@ public class Board extends JPanel implements MouseListener {
                         }
 
                         //rotate the first player to the end of the list
-                        PlayerColor first = players.get(0);
-                        if (checkIfWon(first) == 1) gameWon(Apologies.getNames(0), first);
-                        players.remove(first);
-                        players.add(first);
-                        Apologies.swapFirstLast();
-                        PLAYER.setText(Apologies.getNames(0) + "'s Turn");
-                        updateTurnLabel(players.get(0));
+                        PlayerColor first = playerColorsInTurnOrder.get(0);
+                        if (checkIfWon(first) == 1) gameWon(ApologiesGameWindow.getNameOfPlayerAtIndex(0), first);
+                        playerColorsInTurnOrder.remove(first);
+                        playerColorsInTurnOrder.add(first);
+                        ApologiesGameWindow.cycleFirstPlayerToLast();
+                        playerStatusTextArea.setText(ApologiesGameWindow.getNameOfPlayerAtIndex(0) + "'s Turn");
+                        updateTurnLabel(playerColorsInTurnOrder.get(0));
                         //reset the clickable flag for deck and pawn and sequence
                         isDeckClickable = true;
                         isPawnMovable = false;
@@ -290,36 +282,36 @@ public class Board extends JPanel implements MouseListener {
         repaint();
     }
 
-    public void setupPlayers(PlayerColor first, ArrayList<PlayerColor> playerColors) {
+    public void setupPlayers(PlayerColor firstPlayersColor, List<PlayerColor> playerColors) {
         /***************************************************************************
          * based on which color was selected to go first, generate a list of player colors
          * in the appropriate order (play must proceed clockwise from first player)
          ***************************************************************************/
 
         // Get the correct player order and set BG color
-        for (PlayerColor p : playerColors) players.add(p);
+        playerColorsInTurnOrder = sortPlayerColorsInTurnOrder(playerColors);
 
-        int swaps;
-        if (first == PlayerColor.RED) swaps = 0;
-        else if (first == PlayerColor.BLUE) swaps = 1;
-        else if (first == PlayerColor.YELLOW) swaps = 2;
-        else swaps = 3;
-        updateTurnLabel(first);
-        for (int i = swaps; i > 0; i--) {
-            PlayerColor p = players.get(0);
-            players.remove(p);
-            players.add(p);
-            Apologies.swapFirstLast(); }
-        for (int i = Apologies.names.size() - 1; i >= 0; i--)
-            if (Apologies.getNames(i).length() == 0) Apologies.names.remove(i);
-        PLAYER.setText(Apologies.getNames(0) + "'s Turn");
+        updateTurnLabel(firstPlayersColor);
+
+        playerStatusTextArea.setText(ApologiesGameWindow.getNameOfPlayerAtIndex(0) + "’s Turn");
+    }
+
+    private List<PlayerColor> sortPlayerColorsInTurnOrder(Collection<PlayerColor> colorsToSort) {
+        List<PlayerColor> sortedPlayerColors = new ArrayList<PlayerColor>();
+        final PlayerColor[] allColorsInTurnOrder = new PlayerColor[] {PlayerColor.RED, PlayerColor.BLUE, PlayerColor.YELLOW, PlayerColor.GREEN};
+        for (PlayerColor color : allColorsInTurnOrder) {
+            if (colorsToSort.contains(color)) {
+                sortedPlayerColors.add(color);
+            }
+        }
+        return sortedPlayerColors;
     }
 
     public void updateMoveOptions(int cardNo)
     {
-        TWO_A.setVisible(true);
-        TWO_B.setVisible(true);
-        SKIP.setVisible(true);
+        action1RadioButton.setVisible(true);
+        action2RadioButton.setVisible(true);
+        skipRadioButton.setVisible(true);
         String text1 = "";
         String text2 = "";
         String buttonText1 = "";
@@ -344,33 +336,42 @@ public class Board extends JPanel implements MouseListener {
         else buttonText1 = text1;
         if (text2.startsWith("forward") || text2.startsWith("back") || text2.startsWith("from")) buttonText2 = baseStr.replace("@", text2);
         else buttonText2 = text2;
-        TWO_A.setText(buttonText1);
-        TWO_B.setText(buttonText2);
+        action1RadioButton.setText(buttonText1);
+        action2RadioButton.setText(buttonText2);
 
         // If there is only option, only show one button
-        if (text2.equals(blank)) TWO_B.setVisible(false);
-        else TWO_B.setVisible(true);
+        if (text2.equals(blank)) action2RadioButton.setVisible(false);
+        else action2RadioButton.setVisible(true);
     }
 
     public void updateTurnLabel(PlayerColor nextPlayerCol)
     {
-        PLAYER.setForeground(Color.white);
-        if (nextPlayerCol == PlayerColor.RED) PLAYER.setBackground(Color.RED);
-        else if (nextPlayerCol == PlayerColor.BLUE) PLAYER.setBackground(Color.BLUE);
-        else if (nextPlayerCol == PlayerColor.YELLOW) { PLAYER.setBackground(Color.YELLOW); PLAYER.setForeground(Color.black); }
-        else PLAYER.setBackground(Color.GREEN);
+        playerStatusTextArea.setForeground(Color.white);
+        if (nextPlayerCol == PlayerColor.RED) {
+            playerStatusTextArea.setBackground(Color.RED);
+        } else if (nextPlayerCol == PlayerColor.BLUE) {
+            playerStatusTextArea.setBackground(Color.BLUE);
+        } else if (nextPlayerCol == PlayerColor.YELLOW){
+            playerStatusTextArea.setBackground(Color.YELLOW);
+        } else {
+            playerStatusTextArea.setBackground(Color.GREEN);
+        }
     }
 
     // See if all pawns of the specified color are home
-    public int checkIfWon(PlayerColor col)
+    public int checkIfWon(PlayerColor color)
     {
         for (Pawn pawn: pawns) {
-            if (pawn.getColor() == col)
-                if (pawn.isHome == 0) return 0; }
+            if (pawn.getColor() == color && pawn.isHome == 0) {
+                return 0;
+            }
+        }
         return 1;
     }
 
-    public static List<Pawn> getPawns() { return pawns; }
+    public static List<Pawn> getPawns() {
+        return pawns;
+    }
 
     public void gameWon(String name, PlayerColor first) {
         Object[] options = {"Play Again with Same Settings", "Play Again with New Settings", "Quit"};
@@ -381,7 +382,7 @@ public class Board extends JPanel implements MouseListener {
                 null,
                 options,
                 options[2]);
-        if (choice == 0) new Apologies(players, first, Apologies.names);
+        if (choice == 0) new ApologiesGameWindow(playerColorsInTurnOrder, first, ApologiesGameWindow.playerNames);
         else if (choice == 1) new PlayerSetup();
         else System.exit(0);
     }

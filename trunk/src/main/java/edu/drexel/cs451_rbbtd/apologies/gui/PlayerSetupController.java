@@ -1,17 +1,16 @@
 package edu.drexel.cs451_rbbtd.apologies.gui;
 
-import java.util.ArrayList;
-
+import java.util.*;
 import javax.swing.*;
 
 
 public class PlayerSetupController {
 
-	private Boolean checkNumPlayers(ArrayList<JCheckBox> checkboxGroup) {
+	private Boolean checkNumPlayers(Map<PlayerColor, JCheckBox> checkboxGroup) {
 		// check to make sure at least 2 colors are checked
 		int count = 0;
 		
-		for (JCheckBox check : checkboxGroup) {
+		for (JCheckBox check : checkboxGroup.values()) {
 			if (check.isSelected())
 				count ++;
 		}
@@ -22,66 +21,82 @@ public class PlayerSetupController {
 			return false;
 	}
 	
-	private Boolean checkFirst(ArrayList<JCheckBox> checkboxGroup, ArrayList<JRadioButton> buttons) {
+	private Boolean checkFirstIsPicked(Map<PlayerColor, JCheckBox> playingCheckboxes, Map<PlayerColor, JRadioButton> firstRadioButtons) {
 		// check to make sure one of the checked colors is selected to go first
-		for (int i = 0; i < buttons.size(); i++) { 
-			if (buttons.get(i).isSelected()) {
-				if (!checkboxGroup.get(i).isSelected())
-					return false;
-			}
-		}
-		
-		return true;
+        for (PlayerColor color : firstRadioButtons.keySet()) {
+            if (firstRadioButtons.get(color).isSelected() && playingCheckboxes.get(color).isSelected()) {
+                return true;
+            }
+        }
+		return false;
 	}
-	
-	private Boolean checkNames(ArrayList<JCheckBox> checkboxGroup, ArrayList<JTextField> names) {
-		// check to make sure each checked color has a name
-		for (int i = 0; i < checkboxGroup.size(); i++) {
-			if (checkboxGroup.get(i).isSelected()) {
-				if (names.get(i).getText().trim().equals(""))
-					return false;
-			}
-		}
-		
-		return true;
-	}
-	
-	public Boolean check(ArrayList<JCheckBox> checks, ArrayList<JRadioButton> buttons, ArrayList<JTextField> names) {
-		// return true only if all 3 tests pass
+
+	public Boolean checkReadyToStart(Map<PlayerColor, JCheckBox> checks, Map<PlayerColor, JRadioButton> buttons, Map<PlayerColor, JTextField> names) {
+		// return true only if all tests pass
 		boolean enoughPlayers = checkNumPlayers(checks);
-		boolean firstPicked = checkFirst(checks, buttons);
-		boolean namesEntered = checkNames(checks, names);
-		
-		return (enoughPlayers && firstPicked && namesEntered);
-	}
-   
-   public ArrayList<PlayerColor> getChecked(ArrayList<JCheckBox> checks) {
-		ArrayList<PlayerColor> playerColors = new ArrayList<PlayerColor>();
-		if (checks.get(0).isSelected())
-			playerColors.add(PlayerColor.RED);
-		if (checks.get(1).isSelected())
-			playerColors.add(PlayerColor.BLUE);
-		if (checks.get(2).isSelected())
-			playerColors.add(PlayerColor.YELLOW);
-		if (checks.get(3).isSelected())
-			playerColors.add(PlayerColor.GREEN);
-		
-		return playerColors;
+		boolean firstIsPicked = checkFirstIsPicked(checks, buttons);
+
+        return (enoughPlayers && firstIsPicked);
 	}
 
-    public PlayerColor getFirst(ArrayList<JRadioButton> buttons) {
-        if (buttons.get(0).isSelected())
-            return PlayerColor.RED;
-        if (buttons.get(1).isSelected())
-            return PlayerColor.BLUE;
-        if (buttons.get(2).isSelected())
-            return PlayerColor.YELLOW;
-        if (buttons.get(3).isSelected())
-            return PlayerColor.GREEN;
-
-        return null;
-
+    // returns colors in no particular order
+    public ArrayList<PlayerColor> getCheckedPlayerColors(Map<PlayerColor, JCheckBox> checks) {
+        ArrayList<PlayerColor> playerColors = new ArrayList<PlayerColor>();
+        for (Map.Entry<PlayerColor, JCheckBox> colorAndCheckBoxEntry : checks.entrySet()) {
+            if (colorAndCheckBoxEntry.getValue().isSelected()) {
+                playerColors.add(colorAndCheckBoxEntry.getKey());
+            }
+        }
+        return playerColors;
     }
 
-   
+    public PlayerColor getColorSelectedAsFirst(Map<PlayerColor, JRadioButton> buttons) {
+        for (Map.Entry<PlayerColor, JRadioButton> colorAndRadioButtonEntry : buttons.entrySet()) {
+            if (colorAndRadioButtonEntry.getValue().isSelected()) {
+                return colorAndRadioButtonEntry.getKey();
+            }
+        }
+        return null;
+    }
+
+
+    public List getEffectiveNamesOfPlayingPlayers(Map<PlayerColor, JTextField> names, Collection<PlayerColor> colorsOfPlayingPlayers) {
+        List<String> effectiveNames = new LinkedList<String>();
+        for (Map.Entry<PlayerColor, JTextField> playerColorAndTextFieldEntry : names.entrySet()) {
+            PlayerColor color = playerColorAndTextFieldEntry.getKey();
+            JTextField nameTextField = playerColorAndTextFieldEntry.getValue();
+
+            if (colorsOfPlayingPlayers.contains(color)) {
+                String enteredName = nameTextField.getText().trim();
+                String effectiveName = effectiveNameForPlayerWithEnteredName(color, enteredName);
+                effectiveNames.add(effectiveName);
+            }
+        }
+        return effectiveNames;
+    }
+
+    private String effectiveNameForPlayerWithEnteredName(PlayerColor color, String enteredName) {
+        String effectiveName;
+        if (enteredName.isEmpty()) {
+            effectiveName = playerNameForColor(color);
+        } else {
+            effectiveName = enteredName;
+        }
+        return effectiveName;
+    }
+
+    private String playerNameForColor(PlayerColor color) {
+        switch (color) {
+            case RED:
+                return "Red";
+            case GREEN:
+                return "Green";
+            case BLUE:
+                return "Blue";
+            case YELLOW:
+                return "Yellow";
+            default:
+                return "???";
+        }
+    }
 }
