@@ -3,7 +3,9 @@ package edu.drexel.cs451_rbbtd.apologies.gui;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
-import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 
 public class PlayerSetup extends JFrame {
@@ -25,16 +27,16 @@ public class PlayerSetup extends JFrame {
 	private JRadioButton firstGreen;
 	private JRadioButton firstBlue;
 	private ButtonGroup radioGroup;
-	private ArrayList<JCheckBox> checkGroup = new ArrayList<JCheckBox>();
-	private ArrayList<JRadioButton> rads = new ArrayList<JRadioButton>();
-	private ArrayList<JTextField> names = new ArrayList<JTextField>();
+	private Map<PlayerColor, JCheckBox> playingCheckboxes = new HashMap<PlayerColor, JCheckBox>();
+	private Map<PlayerColor, JRadioButton> firstRadioButtons = new HashMap<PlayerColor, JRadioButton>();
+	private Map<PlayerColor, JTextField> nameFields = new HashMap<PlayerColor, JTextField>();
 
 	private JTextField nameRed;
 	private JTextField nameYellow;
 	private JTextField nameGreen;
 	private JTextField nameBlue;
 	
-	private PlayerSetupController c = new PlayerSetupController();
+	private PlayerSetupController controller = new PlayerSetupController();
 	
 	public PlayerSetup() {
 		prepareGUI();
@@ -64,11 +66,12 @@ public class PlayerSetup extends JFrame {
 
         start.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                Boolean isSetup = c.check(checkGroup, rads, names);
+                Boolean isSetup = controller.checkReadyToStart(playingCheckboxes, firstRadioButtons, nameFields);
                 if (isSetup) {
-                    ArrayList<PlayerColor> colors = c.getChecked(checkGroup);
-                    PlayerColor first = c.getFirst(rads);
-                    new Apologies(colors, first, names);
+                    List<PlayerColor> colorsOfPlayingPlayers = controller.getCheckedPlayerColors(playingCheckboxes);
+                    PlayerColor first = controller.getColorSelectedAsFirst(firstRadioButtons);
+                    List<String> effectiveNames = controller.getEffectiveNamesOfPlayingPlayers(nameFields, colorsOfPlayingPlayers);
+                    new ApologiesGameWindow(colorsOfPlayingPlayers, first, effectiveNames);
                     dispose();
                 }
                 else {
@@ -89,20 +92,20 @@ public class PlayerSetup extends JFrame {
 		checkYellow = new JCheckBox();
 		checkGreen = new JCheckBox();
 		checkBlue = new JCheckBox();
-		checkGroup.add(checkRed);
-        checkGroup.add(checkBlue);
-        checkGroup.add(checkYellow);
-		checkGroup.add(checkGreen);
+		playingCheckboxes.put(PlayerColor.RED, checkRed);
+        playingCheckboxes.put(PlayerColor.BLUE, checkBlue);
+        playingCheckboxes.put(PlayerColor.YELLOW, checkYellow);
+		playingCheckboxes.put(PlayerColor.GREEN, checkGreen);
 
 		//initialize radio buttons and add to groups
 		firstRed = new JRadioButton();
         firstBlue = new JRadioButton();
         firstYellow = new JRadioButton();
 		firstGreen = new JRadioButton();
-		rads.add(firstRed);
-        rads.add(firstBlue);
-        rads.add(firstYellow);
-		rads.add(firstGreen);
+		firstRadioButtons.put(PlayerColor.RED, firstRed);
+        firstRadioButtons.put(PlayerColor.BLUE, firstBlue);
+        firstRadioButtons.put(PlayerColor.YELLOW, firstYellow);
+		firstRadioButtons.put(PlayerColor.GREEN, firstGreen);
 
 		radioGroup = new ButtonGroup();
 		radioGroup.add(firstRed);
@@ -117,10 +120,10 @@ public class PlayerSetup extends JFrame {
 		p.add(check);
 		p.add(radio);
 		
-		JLabel label = new JLabel("        ");
-		label.setOpaque(true);
-		label.setBackground(color);
-		p.add(label);
+		JLabel colorRectangle = new JLabel("        ");
+		colorRectangle.setOpaque(true);
+		colorRectangle.setBackground(color);
+		p.add(colorRectangle);
 		
 		p.add(text);
 		return p;
@@ -153,10 +156,10 @@ public class PlayerSetup extends JFrame {
 		nameYellow = new JTextField(15);
 		nameGreen = new JTextField(15);
 		nameBlue = new JTextField(15);
-		names.add(nameRed);
-        names.add(nameBlue);
-        names.add(nameYellow);
-		names.add(nameGreen);
+		nameFields.put(PlayerColor.RED, nameRed);
+        nameFields.put(PlayerColor.BLUE, nameBlue);
+        nameFields.put(PlayerColor.YELLOW, nameYellow);
+		nameFields.put(PlayerColor.GREEN, nameGreen);
 
 		controlPanel.add(addLabels());
 		controlPanel.add(addLayout(checkRed, firstRed, Color.RED, nameRed));
@@ -170,11 +173,11 @@ public class PlayerSetup extends JFrame {
 	
 	private void clearForm() {
 		// clear checkboxes
-		for (JCheckBox check : checkGroup) {
+		for (JCheckBox check : playingCheckboxes.values()) {
 			check.setSelected(false);
 		}
 		// clear text fields
-		for (JTextField name : names) {
+		for (JTextField name : nameFields.values()) {
 			name.setText("");
 		}
 		// clear radio buttons

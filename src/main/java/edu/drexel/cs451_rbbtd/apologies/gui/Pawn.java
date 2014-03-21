@@ -87,8 +87,7 @@ public class Pawn {
             if (slid) { x_pos += 3; y_pos += 3; }
             x = x_pos;
             y = y_pos;
-        }
-        catch (ArrayIndexOutOfBoundsException e) {
+        } catch (ArrayIndexOutOfBoundsException e) {
             this.x = baseX;
             this.y = baseY;
             space = temp;
