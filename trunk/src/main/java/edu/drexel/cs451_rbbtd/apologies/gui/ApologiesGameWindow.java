@@ -31,8 +31,7 @@ public class ApologiesGameWindow extends JFrame {
     }
 
     public static String getResourcePath(String resourceFilename) {
-        return System.getProperties().getProperty("user.dir") + File.separator + "trunk" + File.separator
-                + "src" + File.separator + "main" + File.separator + "resources" + File.separator + resourceFilename;
+        return "src" + File.separator + "main" + File.separator + "resources" + File.separator + resourceFilename;
     }
 
     public static String getNameOfPlayerAtIndex(int i) {
